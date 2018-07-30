@@ -145,10 +145,13 @@ HTTP PUT `http://<remote server endpoint>/ix/<remote-server-id>/<trans-id>`
 * `remote-server-id`: the target server-id
 * `trans-id`: random uid string as transaction id, shared between the two servers
 
+Header:
+
+`x-ixp-psk`: <remote server psk>
+
 Payload:
 
 ```
-psk: <remote server psk>
 origin: <local server id>
 sender: <sender player uuid>
 item: <item NBT data>
