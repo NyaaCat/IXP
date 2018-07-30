@@ -23,17 +23,22 @@ The IXP plugin is used to exchange item across multiple servers.
 
 ```
 lang: en
+id: act  # local server id
+psk: some_password_1  # local server pre-shared key
 http:
   port: 7363  # S E N D
 server-ids:
   nyaa:
     address: 192.168.1.101:7363
+    psk: some_password_2
     enabled: true
   kedama:
     address: 192.168.1.102:7363
+    psk: some_password_3
     enabled: true
   minigame:
     address: 192.168.1.103:1063
+    psk: some_password_4
     enabled: false  # disable send to this server, receive is still available.
 fee:   # all fees if enabled with HEH, store to system balance. If enabled without HEH, remove from player balance directly.
   send: 10  # per-slot items, this is only a default value
@@ -128,3 +133,22 @@ Player right click on the RECEIVE sign twice to acquire all unprotected items (i
 Designed feature:
 
 * If multiple players send items to one server with the same password, one can acquire all of them with a single request and correct password.
+* Items with no password provided, can be acquired only by the same player (uuid).
+
+### API
+
+* Sending items
+
+HTTP PUT `http://<remote server endpoint>/ix/<remote server-id>`
+
+Payload:
+
+```
+trans_id: <random uuid as transaction id, shared between the two servers>
+psk: <remote server psk>
+origin: <local server id>
+sender: <sender player uuid>
+item: <item NBT data>
+password: <password string or empty>
+timestamp: <unix timestamp when sending the item>
+```
