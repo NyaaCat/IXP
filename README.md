@@ -140,9 +140,9 @@ Designed feature:
 
 * Sending items
 
-HTTP PUT `http://<remote server endpoint>/ix/<remote server-id>/<trans-id>`
+HTTP PUT `http://<remote server endpoint>/ix/<remote-server-id>/<trans-id>`
 
-* `<remote server-id>`: the target server-id
+* `remote-server-id`: the target server-id
 * `trans-id`: random uid string as transaction id, shared between the two servers
 
 Payload:
