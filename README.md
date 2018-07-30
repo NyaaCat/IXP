@@ -46,6 +46,7 @@ fee:   # all fees if enabled with HEH, store to system balance. If enabled witho
 misc:
   password-length: 16 # maximum characters allowed for passwords
   password-timeout: 30  # seconds after first interaction with sign
+  slot-limit: 16  # item slots a player (sender) can use
 ```
 
 And a local SQLite database file (or use other database that NC supports) to store signs and items information.
@@ -135,6 +136,7 @@ Designed feature:
 
 * If multiple players send items to one server with the same password, one can acquire all of them with a single request and correct password.
 * Items with no password provided, can be acquired only by the same player (uuid).
+* All HTTP requests should be async.
 
 ### API
 
@@ -158,3 +160,13 @@ item: <item NBT data>
 password: <password string or empty>
 timestamp: <unix timestamp when sending the item>
 ```
+
+Use HTTP status code as return values.
+
+* `201` - Item received in good order
+* `400` - Bad Request
+* `401` - Authentication Failure
+* `500` - Internal plugin error
+* `503` - Service unavailable - You don't have enough slots on the remote server
+
+When request connection refused or timed out, return error and store the item back to the sender in origin server.
