@@ -147,7 +147,7 @@ HTTP PUT `http://<remote server endpoint>/ix/<remote-server-id>/<trans-id>`
 
 Header:
 
-`x-ixp-psk`: <remote server psk>
+`x-ixp-psk`: `<remote server psk>`
 
 Payload:
 
