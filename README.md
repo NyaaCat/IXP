@@ -103,7 +103,7 @@ Nyaa Post Service
 
 * Sending items without password
 
-Player hold the items and right click on the SEND sign to specific server twice (ignore password prompt).
+Player hold the items and right click on the SEND sign twice to send to specific server (ignore password prompt).
 
 (Items saved to remote server's plugin database).
 
