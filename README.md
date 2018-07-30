@@ -13,8 +13,8 @@ The IXP plugin is used to exchange item across multiple servers.
 | `/ixp sign create send [server-id]` | `ixp.admin` | Register a send out (outbound) IXP sign that send items to the specific server |
 | `/ixp sign create receive` | `ixp.admin` | Register a receive IXP sign that receives items in current server |
 | `/ixp sign remove` | `ixp.admin` | Unregister the facing IXP sign |
-| `/ixp inv acquire [player]` | `ixp.admin` | Acquire all items of a specific player |
-| `/ixp inv clear [player]` | `ixp.admin` | Clear all items of a specific player |
+| `/ixp inv acquire [player]` | `ixp.admin` | Acquire all items of a specific player (sender) |
+| `/ixp inv clear [player]` | `ixp.admin` | Clear all items of a specific player (sender) |
 | `/ixp pass [password]` | `ixp.user` | Enter password if needed |
 
 ### Configuration
