@@ -45,6 +45,7 @@ fee:   # all fees if enabled with HEH, store to system balance. If enabled witho
   receive: 100  # per-slot items, this is only a default value
 misc:
   password-length: 16 # maximum characters allowed for passwords
+  password-timeout: 30  # seconds after first interaction with sign
 ```
 
 And a local SQLite database file (or use other database that NC supports) to store signs and items information.
