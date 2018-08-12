@@ -170,3 +170,5 @@ Use HTTP status code as return values.
 * `503` - Service unavailable - You don't have enough slots on the remote server
 
 When request connection refused or timed out, return error and store the item back to the sender in origin server.
+
+*** Another solution: share a dedicated database instance.
