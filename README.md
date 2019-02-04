@@ -117,8 +117,8 @@ Player right click on the RECEIVE sign twice to acquire all unprotected items (i
 * Sending items with password
 
 1. Player hold the items and right click on the SEND sign to specific server.
-2. Plugin prompt for password in 10 seconds.
-3. Player offer a password to protect the items.
+2. Plugin prompt for password.
+3. Player offer a password `/ixp pass [password]` before timeout to protect the items.
 
 (Items saved to remote server's plugin database with a password).
 
@@ -126,7 +126,7 @@ Player right click on the RECEIVE sign twice to acquire all unprotected items (i
 
 1. Player right click on the RECEIVE sign.
 2. Plugin prompt for password.
-3. Player enters password, and receive the corresponding items. If no password matches (wrong password), return no items found.
+3. Player enters password `/ixp pass [password]`, and receive the corresponding items. If no password matches (wrong password), return no items found.
 
 (Items removed from local plugin database).
 
