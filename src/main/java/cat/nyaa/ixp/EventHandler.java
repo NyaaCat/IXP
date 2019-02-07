@@ -2,8 +2,10 @@ package cat.nyaa.ixp;
 
 import cat.nyaa.ixp.sign.BaseSign;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -28,11 +30,17 @@ public class EventHandler implements Listener {
     @org.bukkit.event.EventHandler
     public void onClickSign(PlayerInteractEvent event){
         Action action = event.getAction();
-        if (action.equals(Action.RIGHT_CLICK_BLOCK)) {
-            Sign sign = (Sign) event.getClickedBlock();
+        if (action.equals(Action.RIGHT_CLICK_BLOCK) && event.getClickedBlock().getBlockData().getMaterial().equals(Material.WALL_SIGN)) {
+            Sign sign = (Sign) event.getClickedBlock().getState();
             if (isIXPSign(sign)){
                 Player player = event.getPlayer();
+                BaseSign baseSign = signMap.get(sign.getLocation());
+                if ( baseSign == null){
+                    baseSign = BaseSign.create(plugin, sign, 5);
+                    signMap.put(sign.getLocation(),baseSign);
 
+                }
+                baseSign.onPlayerRightClick(player);
             }
         }
     }

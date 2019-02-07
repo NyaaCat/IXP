@@ -1,0 +1,21 @@
+name: IXP
+main: cat.nyaa.ixp.IXPPlugin
+description: "IXP"
+version: 1.0
+depend: [NyaaCore]
+authors: [ReinWD]
+website: "https://github.com/NyaaCat/IXP"
+database: false
+
+commands:
+  ixp:
+    description: IXP plugin
+    permission: ixp
+    permission-message: "You do not have the required permission: <permission>"
+    usage: "/<command> [SubCommand...] [Arguments...] or /<command> help"
+
+#permissions:
+#  rpgitem.allowenchant.new:
+#    default: op
+#  rpgitem.allowenchant.old:
+#    default: op

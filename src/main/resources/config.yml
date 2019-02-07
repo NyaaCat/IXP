@@ -1,0 +1,28 @@
+lang: en
+id: act  # local server id
+psk: some_password_1  # local server pre-shared key
+http:
+  port: 7363  # S E N D
+server-ids:
+  nyaa:
+    __class__: cat.nyaa.ixp.conf.ServerId
+    address: 192.168.1.101:7363
+    psk: some_password_2
+    enabled: true
+  kedama:
+    __class__: cat.nyaa.ixp.conf.ServerId
+    address: 192.168.1.102:7363
+    psk: some_password_3
+    enabled: true
+  minigame:
+    __class__: cat.nyaa.ixp.conf.ServerId
+    address: 192.168.1.103:1063
+    psk: some_password_4
+    enabled: false  # disable send to this server, receive is still available.
+fee:   # all fees if enabled with HEH, store to system balance. If enabled without HEH, remove from player balance directly.
+  send: 10  # per-slot items, this is only a default value
+  receive: 100  # per-slot items, this is only a default value
+misc:
+  password-length: 16 # maximum characters allowed for passwords
+  password-timeout: 30  # seconds after first interaction with sign
+  slot-limit: 16  # item slots a player (sender) can use

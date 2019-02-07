@@ -1,9 +1,12 @@
 package cat.nyaa.ixp.sign;
 
+import cat.nyaa.ixp.I18n;
 import cat.nyaa.ixp.IXPPlugin;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -15,22 +18,24 @@ public abstract class BaseSign {
     private IXPPlugin plugin;
     protected int tickSinceClick = 0;
     protected int timeout;
+    private HashSet<UUID> clickQueue;
 
-    BaseSign(IXPPlugin plugin, Sign sign, int timeout){
+    BaseSign(IXPPlugin plugin, Sign sign, int timeout) {
         this.plugin = plugin;
         this.timeout = timeout;
         this.sign = sign;
+        clickQueue = new HashSet<>();
     }
 
     //todo
 
-    public static BaseSign create(IXPPlugin plugin, Sign sign, int timeout){
+    public static BaseSign create(IXPPlugin plugin, Sign sign, int timeout) {
         String type = sign.getLine(1);
         type = type.toUpperCase();
         BaseSign result;
-        switch (type){
+        switch (type) {
             case "SEND":
-                result = new SendSign(plugin,sign,timeout);
+                result = new SendSign(plugin, sign, timeout);
                 break;
             case "RECEIVE":
                 result = new ReceiveSign(plugin, sign, timeout);
@@ -43,17 +48,34 @@ public abstract class BaseSign {
 
     public abstract String getType();
 
-    public void onPlayerRightClick(Player player){
+    public abstract void onSingleClick(Player player);
+
+    public abstract void onDoubleClick(Player player);
+
+    public abstract void onPassword(Player player, boolean correct);
+
+    public void onPlayerRightClick(Player player) {
         UUID uuid = player.getUniqueId();
+        if (!clickQueue.contains(uuid)) {
+            clickQueue.add(uuid);
+            onSingleClick(player);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    onTimeExceeded(player);
+                }
+            }.runTaskLater(plugin, 20*timeout);
+        } else {
+            clickQueue.remove(uuid);
+            onDoubleClick(player);
+        }
     }
 
-    private void onTimeExceeded(Player player){
-        player.sendMessage("操作超时");
+    private void onTimeExceeded(Player player) {
+        if (clickQueue.contains(player.getUniqueId())) {
+            player.sendMessage(I18n.format("sign.timeout"));
+            clickQueue.remove(player.getUniqueId());
+        }
     }
-
-    private void onTimerReset(Player player){
-        player.sendMessage("操作超时");
-    }
-
 
 }

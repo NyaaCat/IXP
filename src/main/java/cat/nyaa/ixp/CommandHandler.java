@@ -3,6 +3,7 @@ package cat.nyaa.ixp;
 import cat.nyaa.nyaacore.CommandReceiver;
 import cat.nyaa.nyaacore.ILocalizer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -22,7 +23,11 @@ public class CommandHandler extends CommandReceiver {
 
     @SubCommand("sign")
     public void signCommand(CommandSender sender, Arguments arguments){
+        if (isAdmin(sender)){
 
+        }else {
+            sender.sendMessage("只有管理员具有管理权限");
+        }
     }
 
     @SubCommand("inv")
@@ -36,4 +41,7 @@ public class CommandHandler extends CommandReceiver {
         //todo check passwd
     }
 
+    private boolean isAdmin(CommandSender sender){
+        return sender.hasPermission("ixp.admin");
+    }
 }

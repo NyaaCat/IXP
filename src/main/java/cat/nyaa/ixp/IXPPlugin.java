@@ -3,6 +3,7 @@ package cat.nyaa.ixp;
 import cat.nyaa.ixp.conf.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -27,6 +28,11 @@ public class IXPPlugin extends JavaPlugin {
         i18n.load();
         PluginCommand ixp = getCommand("ixp");
         ixp.setExecutor(new CommandHandler(this,i18n));
+        getServer().getPluginManager().registerEvents(new EventHandler(this),this);
+    }
+
+    public Configuration getConf(){
+        return this.config;
     }
 
     @Override
