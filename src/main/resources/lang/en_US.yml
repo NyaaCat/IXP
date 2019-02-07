@@ -1,0 +1,3 @@
+sign:
+  timeout: "timed out."
+  send_single_hint: "请再次点击木牌或输入密码"
