@@ -1,6 +1,8 @@
 package cat.nyaa.ixp;
 
 import cat.nyaa.ixp.conf.Configuration;
+import cat.nyaa.ixp.sign.SignManager;
+import cat.nyaa.nyaacore.http.client.HttpClient;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,6 +31,8 @@ public class IXPPlugin extends JavaPlugin {
         PluginCommand ixp = getCommand("ixp");
         ixp.setExecutor(new CommandHandler(this,i18n));
         getServer().getPluginManager().registerEvents(new EventHandler(this),this);
+        SignManager.getInstance().setPlugin(this).load();
+//        HttpClient.init(2);
     }
 
     public Configuration getConf(){

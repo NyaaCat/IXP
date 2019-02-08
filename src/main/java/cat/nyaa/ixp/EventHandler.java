@@ -40,7 +40,7 @@ public class EventHandler implements Listener {
                     signMap.put(sign.getLocation(),baseSign);
 
                 }
-                baseSign.onPlayerRightClick(player);
+                baseSign.onPlayerRightClick(player, event);
             }
         }
     }

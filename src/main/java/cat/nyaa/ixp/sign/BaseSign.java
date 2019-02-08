@@ -4,6 +4,7 @@ import cat.nyaa.ixp.I18n;
 import cat.nyaa.ixp.IXPPlugin;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.UUID;
  * created @ 2019/2/4
  */
 public abstract class BaseSign {
-    private Sign sign;
+    protected Sign sign;
     private IXPPlugin plugin;
     protected int tickSinceClick = 0;
     protected int timeout;
@@ -26,8 +27,6 @@ public abstract class BaseSign {
         this.sign = sign;
         clickQueue = new HashSet<>();
     }
-
-    //todo
 
     public static BaseSign create(IXPPlugin plugin, Sign sign, int timeout) {
         String type = sign.getLine(1);
@@ -50,11 +49,11 @@ public abstract class BaseSign {
 
     public abstract void onSingleClick(Player player);
 
-    public abstract void onDoubleClick(Player player);
+    public abstract void onDoubleClick(Player player, PlayerInteractEvent event);
 
     public abstract void onPassword(Player player, boolean correct);
 
-    public void onPlayerRightClick(Player player) {
+    public void onPlayerRightClick(Player player, PlayerInteractEvent event) {
         UUID uuid = player.getUniqueId();
         if (!clickQueue.contains(uuid)) {
             clickQueue.add(uuid);
@@ -67,7 +66,7 @@ public abstract class BaseSign {
             }.runTaskLater(plugin, 20*timeout);
         } else {
             clickQueue.remove(uuid);
-            onDoubleClick(player);
+            onDoubleClick(player, event);
         }
     }
 
