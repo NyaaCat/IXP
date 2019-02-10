@@ -41,8 +41,7 @@ public class Main extends JavaPlugin {
         catch (Exception ex){
             this.getLogger().info("Server has some wrong");
         }
-
-
+        //test
     }
 
     public boolean loadConfig() {
