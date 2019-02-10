@@ -46,7 +46,6 @@ public class PlayerInteractEventListener implements Listener {
         if (!event.hasBlock()) {
             return;
         }
-        VaultUtils.getVaultEconomy();
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Sign sign = BlockAnalysis.GetSign(event.getClickedBlock());
             //如果分析Block是一个牌子则继续
