@@ -61,7 +61,6 @@ public class PlayerInteractEventListener implements Listener {
                 Tools.updateSign(sign, sdata);
                 IXPData data = BlockAnalysis.GetIXP(sign, plugin.cm.localInfo.getName(), plugin);
                 if (data != null) {
-                    player.sendMessage("这是一个可点击的[IXP]牌子");
                     if(data.getType()== IXPType.SEND){
                         ClickTask task = Tools.findTask(taskList, data, player);
                         //如果尚未添加该任务

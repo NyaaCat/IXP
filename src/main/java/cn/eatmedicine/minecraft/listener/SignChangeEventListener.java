@@ -33,14 +33,17 @@ public class SignChangeEventListener implements Listener {
     public void SignChange(SignChangeEvent event) {
         Block block = event.getBlock();
         String[] lines = event.getLines();
-        IXPData ixp = BlockAnalysis.GetIXP(lines, plugin.getConfig().getString("id"), plugin);
-        Player player = event.getPlayer();
-        if (ixp == null) {
-            player.sendMessage("不能创建了一个IXP牌子");
+        if(lines[0].equals("[IXP]")==false){
             return;
         }
+        Player player = event.getPlayer();
         if (player.hasPermission("ixp.admin") == false) {
             player.sendMessage("无权限创建IXP牌子");
+            return;
+        }
+        IXPData ixp = BlockAnalysis.GetIXP(lines, plugin.getConfig().getString("id"), plugin);
+        if (ixp == null) {
+            player.sendMessage("IXP牌子格式错误");
             return;
         }
         //如果是发送牌，检测发送牌是否在服务器配置里*

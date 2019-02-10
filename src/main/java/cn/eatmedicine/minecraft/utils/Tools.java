@@ -100,8 +100,8 @@ public class Tools {
             sender.sendMessage("/ixp inv clear [player] -- Clear all items of a "
                     + "specific player (sender)\n");
         }
-        sender.sendMessage("/ixp send pass [password] -- 输入发送密码\n");
-        sender.sendMessage("/ixp receive pass [password] -- 输入接收密码\n");
+        sender.sendMessage("/ixp spass [password] -- 输入发送密码\n");
+        sender.sendMessage("/ixp rpass [password] -- 输入接收密码\n");
         return;
     }
 
