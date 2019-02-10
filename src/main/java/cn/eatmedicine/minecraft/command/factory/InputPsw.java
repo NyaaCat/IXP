@@ -53,6 +53,11 @@ public class InputPsw implements IHandleCommand{
             player.sendMessage("Cannot use this password, please try another : )");
             return false;
         }
+        int maxLength = plugin.cm.config.getInt("misc.password-length");
+        if(psw.length()>maxLength){
+            player.sendMessage("Your password length needs to be less than 16");
+            return false;
+        }
         //开始发送信息
         player.sendMessage("发送物品开始：" + psw);
         ItemStack item = player.getInventory().getItemInMainHand();

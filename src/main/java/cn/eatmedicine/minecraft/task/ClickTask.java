@@ -89,7 +89,8 @@ public class ClickTask extends BukkitRunnable {
         if (clickNum == 1) {
             PlayerInventory pi = player.getInventory();
             InputPswTask tmp = new InputPswTask(data,player.getName(),plugin.waitInputPswList,plugin);
-            tmp.runTaskLaterAsynchronously(plugin,200);
+            int delay = plugin.cm.config.getInt("misc.password-timeout")*20;
+            tmp.runTaskLaterAsynchronously(plugin,delay);
             if(plugin.waitInputPswList.size()!=0){
                 for(InputPswTask task : plugin.waitInputPswList){
                     if(task.PlayerName.equals(player.getName())){

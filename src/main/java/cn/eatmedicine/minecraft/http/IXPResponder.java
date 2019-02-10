@@ -43,6 +43,7 @@ public class IXPResponder implements Responder {
             return jsonObject.toJSONString();
         }
         try{
+
             FullHttpRequest request = (FullHttpRequest)req;
             byte[] data = new byte[request.content().readableBytes()];
             request.content().readBytes(data);
@@ -53,6 +54,12 @@ public class IXPResponder implements Responder {
                 tData.Password = null;
             }
             Database db = new Database(plugin);
+            List<TransData> list = db.SelectTransDataByUuid(tData.SenderUuid);
+            if(list.size()>=plugin.cm.config.getInt("misc.slot-limit")){
+                response.status(503);
+                jsonObject.put("status","You don't have enough slots on the remote server");
+                return jsonObject.toJSONString();
+            }
             response.status(201);
             jsonObject.put("status","Ok");
         }catch (Exception ex){
