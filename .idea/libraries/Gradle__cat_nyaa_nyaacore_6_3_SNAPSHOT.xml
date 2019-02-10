@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: cat.nyaa:nyaacore:6.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.nyaa/nyaacore/6.3-SNAPSHOT/5425b011a2686115a7374a1a585f6a9300c8c6eb/nyaacore-6.3-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.nyaa/nyaacore/6.3-SNAPSHOT/a690683c6a33ce6531245a0252ff10f4491a5e4b/nyaacore-6.3-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.nyaa/nyaacore/6.3-SNAPSHOT/54035c278041887500d677476bedcfb64fd6df59/nyaacore-6.3-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.nyaa/nyaacore/6.3-SNAPSHOT/c0b6fd40a2ce84787fb85b04d5f220911b09b34b/nyaacore-6.3-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.nyaa/nyaacore/6.3-SNAPSHOT/9a66b8269f4ef7c58384bc0abcd6dfbd9e621a10/nyaacore-6.3-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

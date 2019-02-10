@@ -1,0 +1,23 @@
+lang: en
+id: testName  # local server id
+psk: test123456  # local server pre-shared key
+http:
+  port: 2333  # S E N D
+serverIds:
+  test1:
+    address: 192.168.1.101:7363
+    psk: psw111
+    enabled: true
+fee:   # all fees if enabled with HEH, store to system balance. If enabled without HEH, remove from player balance directly.
+  send: 10  # per-slot items, this is only a default value
+  receive: 100  # per-slot items, this is only a default value
+misc:
+  password-length: 16 # maximum characters allowed for passwords
+  password-timeout: 30  # seconds after first interaction with sign
+  slot-limit: 16  # item slots a player (sender) can use
+database:
+  provider: sqlite
+  connection:
+    autoscan: true
+    package: cn.eatmedicine.minecraft.Database
+    file: IXP.db

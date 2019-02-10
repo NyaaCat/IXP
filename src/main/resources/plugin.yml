@@ -1,0 +1,14 @@
+name: IXP
+main: cn.eatmedicine.minecraft.Main
+version: 1.0.0
+api-version: 1.13
+depend: [NyaaCore]
+commands:
+  ixp:
+permissions:
+  ixp.admin:
+    description: Give all access to plugin
+    default: op
+  ixp.user:
+    description: Give user enter Password if needed
+    default: true
