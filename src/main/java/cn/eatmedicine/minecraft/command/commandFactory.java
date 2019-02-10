@@ -20,7 +20,7 @@ public class commandFactory {
         this.waitInputPswList = plugin.waitInputPswList;
     }
 
-    public IHandleCommand GetExector(String[] args) {
+    public IHandleCommand GetExecutor(String[] args) {
         if (args[0].toLowerCase().equals("sign")) {
             //sign create/remove
             if (args.length < 2)
@@ -48,24 +48,20 @@ public class commandFactory {
                 return new RemoveSign(plugin, sender);
             }
         }
-        if(args[0].toLowerCase().equals("send")){
-            if(args.length<3)
+        if(args[0].toLowerCase().equals("spass")){
+            if(args.length<2)
                 return null;
-            if(args[1].toLowerCase().equals("pass")){
-                return new InputPsw(plugin,sender,args[2]);
-            }
+            return new InputPsw(plugin,sender,args[1]);
         }
-        if(args[0].toLowerCase().equals("receive")){
-            if(args.length<3)
+        if(args[0].toLowerCase().equals("rpass")){
+            if(args.length<2)
                 return null;
-            if(args[1].toLowerCase().equals("pass")){
-                Player player = Tools.GetPlayer(sender);
-                if(player==null){
-                    sender.sendMessage("Only Player allow use this command");
-                    return null;
-                }
-                return new GetItemByPsw(plugin,args[2],player);
+            Player player = Tools.GetPlayer(sender);
+            if(player==null){
+                sender.sendMessage("Only Player allow use this command");
+                return null;
             }
+            return new GetItemByPsw(plugin,args[1],player);
         }
         if(args[0].toLowerCase().equals("inv")){
             if(args.length<3)

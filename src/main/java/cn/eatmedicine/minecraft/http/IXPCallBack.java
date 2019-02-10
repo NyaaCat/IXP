@@ -27,7 +27,7 @@ public class IXPCallBack implements HttpClient.HttpCallback {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(tdata.SenderUuid));
         String ErrorMsg = "";
         switch(code){
-            case 201:return;
+            case 201:player.sendMessage("Send Success");return;
             case 400:ErrorMsg = "Bad Request";break;
             case 401:ErrorMsg = "Authentication Failure";break;
             case 500:ErrorMsg = "Internal plugin error";break;

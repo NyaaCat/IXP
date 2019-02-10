@@ -32,14 +32,17 @@ public class IXPCommandExecutor implements CommandExecutor {
             Tools.SendHelpMsg(sender);
             return true;
         }
-        CommandUtils.CheckCommandPermission(sender,args);
+        if(CommandUtils.CheckCommandPermission(sender,args)==false){
+            sender.sendMessage("You don't have permission to do this");
+            return false;
+        }
         commandFactory cf = new commandFactory(plugin, sender);
-        IHandleCommand exector = cf.GetExector(args);
-        if (exector == null) {
+        IHandleCommand executor = cf.GetExecutor(args);
+        if (executor == null) {
             Tools.SendHelpMsg(sender);
             return false;
         }
-        exector.handleCommand();
+        executor.handleCommand();
         return true;
     }
 }

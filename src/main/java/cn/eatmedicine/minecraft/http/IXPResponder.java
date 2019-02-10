@@ -60,6 +60,7 @@ public class IXPResponder implements Responder {
                 jsonObject.put("status","You don't have enough slots on the remote server");
                 return jsonObject.toJSONString();
             }
+            db.addTransData(tData);
             response.status(201);
             jsonObject.put("status","Ok");
         }catch (Exception ex){

@@ -27,7 +27,7 @@ public class SignProtectListener implements Listener {
 
     public SignProtectListener(Main plugin) {
         this.plugin = plugin;
-        plugin.getLogger().info("IXP牌子保护加载\n");
+        plugin.getLogger().info("IXP牌子保护加载");
     }
 
     //保护方块破坏 包括牌子本身和依靠物
