@@ -29,7 +29,6 @@ public class SignManager {
     public void updateSignData() {
         Database db = new Database(plugin);
         signData = db.selectAllSign();
-        plugin.getLogger().info("signDataNum:" + signData.size());
         updateAttachBlockData();
     }
 
@@ -40,7 +39,6 @@ public class SignManager {
         for (SignData s : signData) {
             Location l = new Location(Bukkit.getWorld(s.world), s.x, s.y, s.z);
             Block attach = getAttachedBlock(l.getBlock());
-            plugin.getLogger().info("AttachBlock:" + attach.toString());
             attachBlockData.put(l, attach);
         }
     }

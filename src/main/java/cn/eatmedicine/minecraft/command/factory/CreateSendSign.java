@@ -44,7 +44,6 @@ public class CreateSendSign implements IHandleCommand {
             return false;
         }
         Block block = player.getTargetBlock(null, 20);
-        sender.sendMessage("location: " + block.toString());
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
             sender.sendMessage("指向的方块不是一个牌子\n");
@@ -73,7 +72,7 @@ public class CreateSendSign implements IHandleCommand {
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
 
-        player.sendMessage("创建一个IXP牌子\n");
+        player.sendMessage("成功创建一个IXP牌子\n");
         return true;
     }
 

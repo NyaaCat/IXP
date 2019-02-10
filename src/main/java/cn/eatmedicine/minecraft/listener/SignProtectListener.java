@@ -41,19 +41,15 @@ public class SignProtectListener implements Listener {
         if (s != null) {
             //判断牌子是否是要包含的IXP牌子
             boolean tmp = plugin.sm.isIXPSign(block);
-            plugin.getLogger().info("这是一个牌子:" + tmp + "\n");
             if (tmp) {
-                plugin.getLogger().info("这是记录的IXP牌子\n");
                 //如果破坏者有权限就可以破坏
                 //破坏后删除数据库中的信息并且更新
                 if (player.hasPermission("ixp.admin")) {
-                    plugin.getLogger().info("有权限 可以拆除\n");
                     Database db = new Database(plugin);
                     db.deleteSign(block.getX(), block.getY(), block.getZ(), block.getWorld().getName());
                     plugin.sm.updateSignData();
                     plugin.sm.updateAttachBlockData();
                 } else {
-                    plugin.getLogger().info("无权限\n");
                     event.setCancelled(true);
                     return;
                 }
@@ -61,7 +57,6 @@ public class SignProtectListener implements Listener {
 
         }
         if (plugin.sm.isAttachBlock(block)) {
-            plugin.getLogger().info("这是记录的IXP牌子的依靠物\n");
             event.setCancelled(true);
         }
 

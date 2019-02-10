@@ -36,11 +36,9 @@ public class ConfigManager {
             int port = Integer.parseInt(address.split(":")[1]);
             String psk = config.getString("serverIds." + str + ".psk");
             boolean isEnable = config.getBoolean("serverIds." + str + ".enabled");
-            plugin.getLogger().info(str + "|" + ip + "|" + port + "|" + psk + "|" + isEnable + "\n");
             serverIds tmp = new serverIds(str, ip, port, psk, isEnable);
             server.add(tmp);
         }
-        plugin.getLogger().info("Have"+server.size()+"Server");
         return true;
 
     }

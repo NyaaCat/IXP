@@ -59,7 +59,6 @@ public class SignChangeEventListener implements Listener {
         Location site = block.getLocation();
         Database db = new Database(plugin);
         String worldName = block.getWorld().getName();
-        player.sendMessage("worldName:" + worldName);
         //如果是接收牌
         if (ixp.getType() == IXPType.RECEIVE)
             db.addSign(site.getBlockX(), site.getBlockY(), site.getBlockZ(), worldName, null, 1, ixp.getFee(), 1);

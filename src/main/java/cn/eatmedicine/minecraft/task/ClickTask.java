@@ -99,11 +99,9 @@ public class ClickTask extends BukkitRunnable {
             }
 
             waitInputPswList.add(tmp);
-            player.sendMessage("发生了单击事件:" + data.getFee());
         }
         // 多击事件
         else if (clickNum > 1) {
-            player.sendMessage("发生了双击事件:" + data.getFee());
             //开始发送信息
             ItemStack item = player.getInventory().getItemInMainHand();
             if(item.getType()== Material.AIR){
@@ -111,7 +109,6 @@ public class ClickTask extends BukkitRunnable {
                 dataList.remove(this);
                 return;
             }
-            plugin.getLogger().info(item.toString());
             String itemBase64 = ItemStackUtils.itemToBase64(item);
             player.getInventory().setItemInMainHand(null);
             Date date = new Date();
@@ -140,9 +137,7 @@ public class ClickTask extends BukkitRunnable {
             Map<String,String> head = new HashMap<>();
             head.put("x-ixp-psk",targetServer.getPsk());
             String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;
-            plugin.getLogger().info(url);
             HttpClient.postJson(url, head, gson.toJson(tdata),new IXPCallBack(plugin,tdata));
-            player.sendMessage("Send!");
         }
         //运行完一次后删除自己
         dataList.remove(this);

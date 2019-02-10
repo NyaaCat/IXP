@@ -60,7 +60,6 @@ public class InputPsw implements IHandleCommand{
             player.sendMessage("Your main hand needs to have an item");
             return false;
         }
-        plugin.getLogger().info(item.toString());
         String itemBase64 = ItemStackUtils.itemToBase64(item);
         player.getInventory().setItemInMainHand(null);
         Date date = new Date();
@@ -88,9 +87,7 @@ public class InputPsw implements IHandleCommand{
         Map<String,String> head = new HashMap<>();
         head.put("x-ixp-psk",targetServer.getPsk());
         String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;
-        plugin.getLogger().info(url);
         HttpClient.postJson(url, head, gson.toJson(data),new IXPCallBack(plugin,data));
-        player.sendMessage("Send!");
         plugin.waitInputPswList.remove(info);
         return true;
     }

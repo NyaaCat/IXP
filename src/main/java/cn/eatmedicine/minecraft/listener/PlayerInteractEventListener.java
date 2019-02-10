@@ -107,11 +107,9 @@ public class PlayerInteractEventListener implements Listener {
         Database db = new Database(plugin);
         SignData sd = db.selectSign(x, y, z, signSite.getWorld().getName());
         if (sd == null) {
-            plugin.getLogger().info("该牌子不在配置文件中");
             return false;
         }
         if (sd.isEnable == 0) {
-            plugin.getLogger().info("该牌子未启用");
             return false;
         }
         return true;

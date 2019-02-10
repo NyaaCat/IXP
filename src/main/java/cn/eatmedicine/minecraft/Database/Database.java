@@ -101,7 +101,7 @@ public class Database implements Cloneable {
             query.commit();
         }
         catch(Exception ex) {
-            plugin.getLogger().info(ex.toString());
+            ex.printStackTrace();
             return false;
         }
         return true;

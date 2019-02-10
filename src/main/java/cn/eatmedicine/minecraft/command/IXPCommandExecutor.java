@@ -26,7 +26,6 @@ public class IXPCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!cmd.getName().equalsIgnoreCase("ixp")) {
-            plugin.getLogger().info("这个不是IXP");
             return false;
         }
         if (args.length == 0) {

@@ -22,8 +22,6 @@ public class InputPswTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        plugin.getLogger().info("Before:"+list.size());
         list.remove(this);
-        plugin.getLogger().info("After:"+list.size());
     }
 }

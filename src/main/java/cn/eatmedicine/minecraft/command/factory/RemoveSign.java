@@ -31,7 +31,6 @@ public class RemoveSign implements IHandleCommand {
             return false;
         }
         Block block = player.getTargetBlock(null, 20);
-        sender.sendMessage("location: " + block.toString());
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
             sender.sendMessage("指向的方块不是一个牌子\n");
