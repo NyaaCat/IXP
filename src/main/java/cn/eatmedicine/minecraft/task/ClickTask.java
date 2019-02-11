@@ -15,6 +15,7 @@ import cn.eatmedicine.minecraft.http.IXPCallBack;
 import cn.eatmedicine.minecraft.utils.Tools;
 import com.google.gson.Gson;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -135,6 +136,9 @@ public class ClickTask extends BukkitRunnable {
                 dataList.remove(this);
                 return;
             }
+            //Deducting money
+            OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(player.getUniqueId());
+            plugin.economy.withdrawPlayer(offlinePlayer,ixpData.getFee());
             Map<String,String> head = new HashMap<>();
             head.put("x-ixp-psk",targetServer.getPsk());
             String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;

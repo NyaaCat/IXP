@@ -12,6 +12,7 @@ import cn.eatmedicine.minecraft.utils.Tools;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -75,7 +76,6 @@ public class InputPsw implements IHandleCommand{
         Gson gson = new Gson();
         //trans-id
         String transId = Tools.GetRandomString(16);
-
         //head
         IXPData ixpData = info.data;
         serverIds targetServer = null;
@@ -89,6 +89,9 @@ public class InputPsw implements IHandleCommand{
             plugin.waitInputPswList.remove(info);
             return false;
         }
+        //Deducting money
+        OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(player.getUniqueId());
+        plugin.economy.withdrawPlayer(offlinePlayer,ixpData.getFee());
         Map<String,String> head = new HashMap<>();
         head.put("x-ixp-psk",targetServer.getPsk());
         String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;

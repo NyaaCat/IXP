@@ -32,10 +32,21 @@ public class IXPCommandExecutor implements CommandExecutor {
             Tools.SendHelpMsg(sender);
             return true;
         }
+        Player player = Tools.GetPlayer(sender);
+        if(player!=null){
+            if(args[0].toLowerCase().equals("ecoadd")){
+                plugin.economy.depositPlayer(plugin.getServer().getOfflinePlayer(player.getUniqueId()),50);
+            }
+            if(args[0].toLowerCase().equals("ecodel")){
+                plugin.economy.withdrawPlayer(plugin.getServer().getOfflinePlayer(player.getUniqueId()),50);
+            }
+        }
         if(CommandUtils.CheckCommandPermission(sender,args)==false){
             sender.sendMessage("You don't have permission to do this");
             return false;
         }
+
+
         commandFactory cf = new commandFactory(plugin, sender);
         IHandleCommand executor = cf.GetExecutor(args);
         if (executor == null) {

@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cat.nyaa.nyaacore.http.server.TinyHttpServer;
+import cat.nyaa.nyaacore.utils.VaultUtils;
 import cn.eatmedicine.minecraft.http.IXPResponder;
 import cn.eatmedicine.minecraft.task.InputPswTask;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import cn.eatmedicine.minecraft.command.IXPCommandExecutor;
@@ -22,6 +25,7 @@ public class Main extends JavaPlugin {
     public ConfigManager cm;
     public TinyHttpServer tinyHttpServer;
     public List<InputPswTask> waitInputPswList;
+    public Economy economy = null;
 
     @Override
     public void onEnable() {
@@ -30,6 +34,13 @@ public class Main extends JavaPlugin {
         sm = new SignManager(this);
         cm = new ConfigManager(this);
         waitInputPswList = new ArrayList<>();
+        economy = VaultUtils.getVaultEconomy();
+        if(initVault()==false){
+            this.getLogger().info("Cannot find Vault plugin, Init fail");
+            return;
+        }
+
+
         getServer().getPluginManager().registerEvents(new PlayerInteractEventListener(this), this);
         getServer().getPluginManager().registerEvents(new SignChangeEventListener(this), this);
         getServer().getPluginManager().registerEvents(new SignProtectListener(this), this);
@@ -54,5 +65,16 @@ public class Main extends JavaPlugin {
         return true;
     }
 
+    public boolean initVault(){
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            if ((economy = economyProvider.getProvider()) == null){
+                return false;
+            }
+            else
+                return true;
+        }
+        return false;
+    }
 
 }

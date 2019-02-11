@@ -10,6 +10,7 @@ import cn.eatmedicine.minecraft.IXPData.IXPType;
 import cn.eatmedicine.minecraft.task.ClickTask;
 import cn.eatmedicine.minecraft.task.InputPswTask;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,6 +62,12 @@ public class PlayerInteractEventListener implements Listener {
                 Tools.updateSign(sign, sdata);
                 IXPData data = BlockAnalysis.GetIXP(sign, plugin.cm.localInfo.getName(), plugin);
                 if (data != null) {
+                    OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(player.getUniqueId());
+                    if(plugin.economy.has(offlinePlayer,data.getFee())==false){
+                        player.sendMessage("You don't have enough money");
+                        return;
+                    }
+                    //Send Sign
                     if(data.getType()== IXPType.SEND){
                         ClickTask task = Tools.findTask(taskList, data, player);
                         //如果尚未添加该任务
@@ -73,6 +80,7 @@ public class PlayerInteractEventListener implements Listener {
                             task.addClickNum();
                         }
                     }
+                    //Receive Sign
                     else{
                         List<TransData> list = db.SelectTransDataByUuid(player.getUniqueId().toString());
                         if(list.size()==0){
@@ -80,6 +88,12 @@ public class PlayerInteractEventListener implements Listener {
                             return;
                         }
                         for(TransData tdata : list){
+                            //Check if the player account has money to get the next item
+                            if(plugin.economy.has(offlinePlayer,data.getFee())==false){
+                                player.sendMessage("You don't have enough money to get the next item ");
+                                return;
+                            }
+                            //Check inventory has empty
                             Inventory inventory = player.getInventory();
                             if(inventory.firstEmpty()==-1){
                                 player.sendMessage("Your inventory already full，please clear your inventory and try again");
@@ -88,6 +102,8 @@ public class PlayerInteractEventListener implements Listener {
                             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);
                             db.deleteTransData(tdata.SenderUuid,tdata.TimeStamp);
                             inventory.addItem(item);
+                            //Take money
+                            plugin.economy.withdrawPlayer(offlinePlayer,data.getFee());
                         }
                         return;
                     }
