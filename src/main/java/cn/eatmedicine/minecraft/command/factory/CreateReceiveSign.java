@@ -58,7 +58,7 @@ public class CreateReceiveSign implements IHandleCommand {
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
 
-        player.sendMessage("创建一个IXP牌子");
+        player.sendMessage("创建了一个IXP牌子");
         return true;
     }
 }

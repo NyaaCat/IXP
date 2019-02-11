@@ -31,20 +31,26 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         getLogger().info("IXP插件正在加载");
         loadConfig();
+        //Used for management and protection of sign
         sm = new SignManager(this);
+        //For config management
         cm = new ConfigManager(this);
+        //Variables for entering a send password in the sending item
         waitInputPswList = new ArrayList<>();
+        //Operation about Economy
         economy = VaultUtils.getVaultEconomy();
         if(initVault()==false){
             this.getLogger().info("Cannot find Vault plugin, Init fail");
             return;
         }
 
-
+        //Register the listener
         getServer().getPluginManager().registerEvents(new PlayerInteractEventListener(this), this);
         getServer().getPluginManager().registerEvents(new SignChangeEventListener(this), this);
         getServer().getPluginManager().registerEvents(new SignProtectListener(this), this);
+        //Set IXP Command Executor
         this.getCommand("ixp").setExecutor(new IXPCommandExecutor(this));
+        //Generate a server that listens for item delivery
         try{
             int port = cm.localInfo.getPort();
             tinyHttpServer = new TinyHttpServer(new IXPResponder(this),port,port);

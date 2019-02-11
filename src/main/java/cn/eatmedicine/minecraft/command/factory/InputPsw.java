@@ -40,6 +40,7 @@ public class InputPsw implements IHandleCommand{
         Player player = Tools.GetPlayer(sender);
         if (player == null)
             return false;
+        //To find whether the corresponding input command task
         InputPswTask info = null;
         for (InputPswTask tmp : plugin.waitInputPswList) {
             if (tmp.PlayerName.equals(player.getName())) {
@@ -50,6 +51,7 @@ public class InputPsw implements IHandleCommand{
             player.sendMessage("需要右击发送牌后才可以输入密码");
             return false;
         }
+        //This password is used as a passwordless identification field
         if(psw.equals("CannotUseThisPassword")){
             player.sendMessage("Cannot use this password, please try another : )");
             return false;
@@ -59,8 +61,7 @@ public class InputPsw implements IHandleCommand{
             player.sendMessage("Your password length needs to be less than 16");
             return false;
         }
-        //开始发送信息
-        player.sendMessage("发送物品开始：" + psw);
+        //Begin Send
         ItemStack item = player.getInventory().getItemInMainHand();
         if(item.getType()== Material.AIR){
             player.sendMessage("Your main hand needs to have an item");
@@ -76,7 +77,6 @@ public class InputPsw implements IHandleCommand{
         Gson gson = new Gson();
         //trans-id
         String transId = Tools.GetRandomString(16);
-        //head
         IXPData ixpData = info.data;
         serverIds targetServer = null;
         for(serverIds server : plugin.cm.server){
@@ -92,6 +92,7 @@ public class InputPsw implements IHandleCommand{
         //Deducting money
         OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(player.getUniqueId());
         plugin.economy.withdrawPlayer(offlinePlayer,ixpData.getFee());
+        //head
         Map<String,String> head = new HashMap<>();
         head.put("x-ixp-psk",targetServer.getPsk());
         String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;

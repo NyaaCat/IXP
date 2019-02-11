@@ -22,12 +22,12 @@ public class ClearAllItem implements IHandleCommand{
     @Override
     public boolean handleCommand() {
         Database db = new Database(plugin);
-        Player aquirePlayer = plugin.getServer().getPlayer(ClearPlayerName);
-        if(aquirePlayer==null){
+        Player acquirePlayer = plugin.getServer().getPlayer(ClearPlayerName);
+        if(acquirePlayer==null){
             player.sendMessage("Could not find this Player");
             return false;
         }
-        String Uuid = aquirePlayer.getUniqueId().toString();
+        String Uuid = acquirePlayer.getUniqueId().toString();
         int count = db.deleteAllTransData(Uuid);
         player.sendMessage("Success delete "+count+" item");
         return false;

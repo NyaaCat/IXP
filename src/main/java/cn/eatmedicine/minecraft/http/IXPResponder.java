@@ -32,6 +32,8 @@ public class IXPResponder implements Responder {
     public Object receive(HttpRequest req, ResponseHead response) throws Exception {
         JSONObject jsonObject = new JSONObject();
         String[] parm = req.uri().split("/");
+        // Check if the url is legal
+        // http://<remote server endpoint>/ix/v1/<remote-server-id>/<trans-id>
         if(parm.length!=5){
             response.status(400);
             jsonObject.put("status","Bad Request");
@@ -43,17 +45,19 @@ public class IXPResponder implements Responder {
             return jsonObject.toJSONString();
         }
         try{
-
+            //Get Content
             FullHttpRequest request = (FullHttpRequest)req;
             byte[] data = new byte[request.content().readableBytes()];
             request.content().readBytes(data);
             String strContent = new String(data, "UTF-8");
+            //Get TranData
             Gson gson = new Gson();
             TransData tData = gson.fromJson(strContent, TransData.class);
             if(tData.Password.equals("CannotUseThisPassword")){
                 tData.Password = null;
             }
             Database db = new Database(plugin);
+            // Check if the user has enough slot
             List<TransData> list = db.SelectTransDataByUuid(tData.SenderUuid);
             if(list.size()>=plugin.cm.config.getInt("misc.slot-limit")){
                 response.status(503);

@@ -74,9 +74,10 @@ public class PlayerInteractEventListener implements Listener {
                         if (task == null) {
                             ClickTask tmp = new ClickTask(taskList, data, plugin, player);
                             taskList.add(tmp);
-
                             tmp.runTaskLater(plugin, 8);
-                        } else {
+                        }
+                        //如果任务已经存在，则点击次数+1，用于区分单击任务和双击任务
+                        else {
                             task.addClickNum();
                         }
                     }

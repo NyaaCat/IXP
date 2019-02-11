@@ -14,23 +14,23 @@ import java.util.List;
 public class AcquireAllItem implements IHandleCommand{
     public Main plugin;
     public Player player;
-    public String AquirePlayerName;
+    public String AcquirePlayerName;
 
-    public AcquireAllItem(Main plugin, Player player, String aquirePlayerName) {
+    public AcquireAllItem(Main plugin, Player player, String acquirePlayerName) {
         this.plugin = plugin;
         this.player = player;
-        AquirePlayerName = aquirePlayerName;
+        AcquirePlayerName = acquirePlayerName;
     }
 
 
     @Override
     public boolean handleCommand() {
-        Player aquirePlayer = plugin.getServer().getPlayer(AquirePlayerName);
-        if(aquirePlayer==null){
+        Player acquirePlayer = plugin.getServer().getPlayer(AcquirePlayerName);
+        if(acquirePlayer==null){
              player.sendMessage("Could not find this Player");
              return false;
         }
-        String Uuid = aquirePlayer.getUniqueId().toString();
+        String Uuid = acquirePlayer.getUniqueId().toString();
         Database db = new Database(plugin);
         List<TransData> list = db.SelectTransDataByUuid(Uuid);
         if(list.size()==0){
