@@ -40,7 +40,7 @@ public class AcquireAllItem implements IHandleCommand{
         for(TransData tdata : list){
             Inventory inventory = player.getInventory();
             if(inventory.firstEmpty()==-1){
-                player.sendMessage("Your inventory already full£¬please clear your inventory and try again");
+                player.sendMessage("Your inventory already fullï¼Œplease clear your inventory and try again");
                 break;
             }
             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);

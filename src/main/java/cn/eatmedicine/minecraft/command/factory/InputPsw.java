@@ -48,7 +48,7 @@ public class InputPsw implements IHandleCommand{
             }
         }
         if (info == null) {
-            player.sendMessage("需要右击发送牌后才可以输入密码");
+            player.sendMessage("闇�瑕佸彸鍑诲彂閫佺墝鍚庢墠鍙互杈撳叆瀵嗙爜");
             return false;
         }
         //This password is used as a passwordless identification field
@@ -85,7 +85,7 @@ public class InputPsw implements IHandleCommand{
             }
         }
         if(targetServer == null){
-            player.sendMessage("未找到目标服务器信息");
+            player.sendMessage("鏈壘鍒扮洰鏍囨湇鍔″櫒淇℃伅");
             plugin.waitInputPswList.remove(info);
             return false;
         }

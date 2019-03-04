@@ -27,23 +27,23 @@ public class SignProtectListener implements Listener {
 
     public SignProtectListener(Main plugin) {
         this.plugin = plugin;
-        plugin.getLogger().info("IXPÅÆ×Ó±£»¤¼ÓÔØ");
+        plugin.getLogger().info("IXPç‰Œå­ä¿æŠ¤åŠ è½½");
     }
 
-    //±£»¤·½¿éÆÆ»µ °üÀ¨ÅÆ×Ó±¾ÉíºÍÒÀ¿¿Îï
+    //ä¿æŠ¤æ–¹å—ç ´å åŒ…æ‹¬ç‰Œå­æœ¬èº«å’Œä¾é ç‰©
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
 
         Block block = event.getBlock();
         Player player = event.getPlayer();
-        //ÆÆ»µµÄÊÇ·ñÊÇÅÆ×Ó
+        //ç ´åçš„æ˜¯å¦æ˜¯ç‰Œå­
         Sign s = BlockAnalysis.GetSign(block);
         if (s != null) {
-            //ÅĞ¶ÏÅÆ×ÓÊÇ·ñÊÇÒª°üº¬µÄIXPÅÆ×Ó
+            //åˆ¤æ–­ç‰Œå­æ˜¯å¦æ˜¯è¦åŒ…å«çš„IXPç‰Œå­
             boolean tmp = plugin.sm.isIXPSign(block);
             if (tmp) {
-                //Èç¹ûÆÆ»µÕßÓĞÈ¨ÏŞ¾Í¿ÉÒÔÆÆ»µ
-                //ÆÆ»µºóÉ¾³ıÊı¾İ¿âÖĞµÄĞÅÏ¢²¢ÇÒ¸üĞÂ
+                //å¦‚æœç ´åè€…æœ‰æƒé™å°±å¯ä»¥ç ´å
+                //ç ´åååˆ é™¤æ•°æ®åº“ä¸­çš„ä¿¡æ¯å¹¶ä¸”æ›´æ–°
                 if (player.hasPermission("ixp.admin")) {
                     Database db = new Database(plugin);
                     db.deleteSign(block.getX(), block.getY(), block.getZ(), block.getWorld().getName());

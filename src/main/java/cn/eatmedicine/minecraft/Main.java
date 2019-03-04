@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("IXP插件正在加载");
+        getLogger().info("IXP鎻掍欢姝ｅ湪鍔犺浇");
         loadConfig();
         //Used for management and protection of sign
         sm = new SignManager(this);

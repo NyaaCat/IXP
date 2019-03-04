@@ -35,16 +35,16 @@ public class commandFactory {
                     //send [server-ids]
                     if (args.length < 4)
                         return null;
-                    //创建
+                    //鍒涘缓
                     return new CreateSendSign(plugin, sender, args[3]);
                 }
                 if (args[2].toLowerCase().equals("receive")) {
-                    //创建
+                    //鍒涘缓
                     return new CreateReceiveSign(plugin, sender);
                 }
             }
             if (args[1].toLowerCase().equals("remove")) {
-                //创建
+                //鍒涘缓
                 return new RemoveSign(plugin, sender);
             }
         }

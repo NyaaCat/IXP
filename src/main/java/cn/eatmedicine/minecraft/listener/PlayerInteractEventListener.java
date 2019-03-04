@@ -35,7 +35,7 @@ public class PlayerInteractEventListener implements Listener {
 
     public PlayerInteractEventListener(Main plugin) {
         this.plugin = plugin;
-        //³õÊ¼»¯Ò»¸öÈÎÎñÁĞ±í
+        //åˆå§‹åŒ–ä¸€ä¸ªä»»åŠ¡åˆ—è¡¨
         taskList = new ArrayList<ClickTask>();
         this.waitInputPswList = plugin.waitInputPswList;
     }
@@ -43,19 +43,19 @@ public class PlayerInteractEventListener implements Listener {
     @EventHandler
     public void PlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        //¼ì²éÊÂ¼şÊÇ·ñºÍblockÓĞ¹Ø   ²»ÊÇÔò·µ»Ø
+        //æ£€æŸ¥äº‹ä»¶æ˜¯å¦å’Œblockæœ‰å…³   ä¸æ˜¯åˆ™è¿”å›
         if (!event.hasBlock()) {
             return;
         }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Sign sign = BlockAnalysis.GetSign(event.getClickedBlock());
-            //Èç¹û·ÖÎöBlockÊÇÒ»¸öÅÆ×ÓÔò¼ÌĞø
+            //å¦‚æœåˆ†æBlockæ˜¯ä¸€ä¸ªç‰Œå­åˆ™ç»§ç»­
             if (sign != null) {
                 if (isSignEnable(event.getClickedBlock().getLocation()) == false) {
-                    player.sendMessage("¸ÃÅÆ×ÓÎ´ÉèÖÃ»òÕßÎ´ÆôÓÃ");
+                    player.sendMessage("è¯¥ç‰Œå­æœªè®¾ç½®æˆ–è€…æœªå¯ç”¨");
                     return;
                 }
-                //È»ºó·ÖÎöÅÆ×ÓµÄÄÚÈİ£¬µÃ³öĞÅÏ¢
+                //ç„¶ååˆ†æç‰Œå­çš„å†…å®¹ï¼Œå¾—å‡ºä¿¡æ¯
                 Database db = new Database(plugin);
                 SignData sdata = db.selectSign(sign.getX(), sign.getY(), sign.getZ(),
                         sign.getWorld().getName());
@@ -70,13 +70,13 @@ public class PlayerInteractEventListener implements Listener {
                     //Send Sign
                     if(data.getType()== IXPType.SEND){
                         ClickTask task = Tools.findTask(taskList, data, player);
-                        //Èç¹ûÉĞÎ´Ìí¼Ó¸ÃÈÎÎñ
+                        //å¦‚æœå°šæœªæ·»åŠ è¯¥ä»»åŠ¡
                         if (task == null) {
                             ClickTask tmp = new ClickTask(taskList, data, plugin, player);
                             taskList.add(tmp);
                             tmp.runTaskLater(plugin, 8);
                         }
-                        //Èç¹ûÈÎÎñÒÑ¾­´æÔÚ£¬Ôòµã»÷´ÎÊı+1£¬ÓÃÓÚÇø·Öµ¥»÷ÈÎÎñºÍË«»÷ÈÎÎñ
+                        //å¦‚æœä»»åŠ¡å·²ç»å­˜åœ¨ï¼Œåˆ™ç‚¹å‡»æ¬¡æ•°+1ï¼Œç”¨äºåŒºåˆ†å•å‡»ä»»åŠ¡å’ŒåŒå‡»ä»»åŠ¡
                         else {
                             task.addClickNum();
                         }
@@ -97,7 +97,7 @@ public class PlayerInteractEventListener implements Listener {
                             //Check inventory has empty
                             Inventory inventory = player.getInventory();
                             if(inventory.firstEmpty()==-1){
-                                player.sendMessage("Your inventory already full£¬please clear your inventory and try again");
+                                player.sendMessage("Your inventory already fullï¼Œplease clear your inventory and try again");
                                 break;
                             }
                             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);
@@ -116,7 +116,7 @@ public class PlayerInteractEventListener implements Listener {
     }
 
     public boolean isSignEnable(Location signSite) {
-        //Èç¹û²»´æÔÚ¶ÔÓ¦Â·¾¶
+        //å¦‚æœä¸å­˜åœ¨å¯¹åº”è·¯å¾„
         int x = signSite.getBlockX();
         int y = signSite.getBlockY();
         int z = signSite.getBlockZ();

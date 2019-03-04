@@ -33,17 +33,17 @@ public class CreateReceiveSign implements IHandleCommand {
         Block block = player.getTargetBlock(null, 20);
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
-            sender.sendMessage("指向的方块不是一个牌子");
+            sender.sendMessage("鎸囧悜鐨勬柟鍧椾笉鏄釜鐗屽瓙");
             return false;
         }
 
         IXPData ixp = BlockAnalysis.GetIXP(sign, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("该牌子不是IXP牌子");
+            player.sendMessage("璇ョ墝瀛愪笉鏄疘XP鐗屽瓙");
             return false;
         }
         if (player.hasPermission("ixp.admin") == false) {
-            player.sendMessage("无权限创建IXP牌子");
+            player.sendMessage("鏃犳潈闄愬垱寤篒XP鐗屽瓙");
             return false;
         }
 
@@ -51,14 +51,14 @@ public class CreateReceiveSign implements IHandleCommand {
         Database db = new Database(plugin);
         String worldName = block.getWorld().getName();
         if (db.selectSign(site.getBlockX(), site.getBlockY(), site.getBlockZ(), worldName) != null) {
-            sender.sendMessage("该牌子已存在");
+            sender.sendMessage("璇ョ墝瀛愬凡瀛樺湪");
             return false;
         }
         db.addSign(site.getBlockX(), site.getBlockY(), site.getBlockZ(), worldName, null, 0, ixp.getFee(), 1);
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
 
-        player.sendMessage("创建了一个IXP牌子");
+        player.sendMessage("鍒涘缓浜嗕竴涓狪XP鐗屽瓙");
         return true;
     }
 }

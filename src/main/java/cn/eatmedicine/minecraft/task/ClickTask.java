@@ -74,7 +74,7 @@ public class ClickTask extends BukkitRunnable {
     public List<InputPswTask> waitInputPswList;
 
 
-    //ĞèÒªÊäÈëÒ»¸öÈÎÎñÁĞ±í¡¢¶ÔÓ¦IXPÅÆ×ÓµÄĞÅÏ¢¡¢²å¼ş¶ÔÏó¡¢»¹ÓĞÓÒ¼üµÄÍæ¼Ò¶ÔÏó
+    //éœ€è¦è¾“å…¥ä¸€ä¸ªä»»åŠ¡åˆ—è¡¨ã€å¯¹åº”IXPç‰Œå­çš„ä¿¡æ¯ã€æ’ä»¶å¯¹è±¡ã€è¿˜æœ‰å³é”®çš„ç©å®¶å¯¹è±¡
     public ClickTask(List<ClickTask> list, IXPData data, Main plugin, Player player)  {
         this.dataList = list;
         this.data = data;
@@ -86,7 +86,7 @@ public class ClickTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        // µ¥»÷ÊÂ¼ş
+        // å•å‡»äº‹ä»¶
         if (clickNum == 1) {
             PlayerInventory pi = player.getInventory();
             InputPswTask tmp = new InputPswTask(data,player.getName(),plugin.waitInputPswList,plugin);
@@ -102,9 +102,9 @@ public class ClickTask extends BukkitRunnable {
 
             waitInputPswList.add(tmp);
         }
-        // ¶à»÷ÊÂ¼ş
+        // å¤šå‡»äº‹ä»¶
         else if (clickNum > 1) {
-            //¿ªÊ¼·¢ËÍĞÅÏ¢
+            //å¼€å§‹å‘é€ä¿¡æ¯
             ItemStack item = player.getInventory().getItemInMainHand();
             if(item.getType()== Material.AIR){
                 player.sendMessage("Your main hand needs to have an item");
@@ -131,7 +131,7 @@ public class ClickTask extends BukkitRunnable {
                 }
             }
             if(targetServer == null){
-                player.sendMessage("Î´ÕÒµ½Ä¿±ê·şÎñÆ÷ĞÅÏ¢");
+                player.sendMessage("æœªæ‰¾åˆ°ç›®æ ‡æœåŠ¡å™¨ä¿¡æ¯");
                 player.getInventory().addItem(item);
                 dataList.remove(this);
                 return;
@@ -144,7 +144,7 @@ public class ClickTask extends BukkitRunnable {
             String url = "http://"+targetServer.getIp()+":"+targetServer.getPort()+"/ix/v1/"+ixpData.getToServer()+"/"+transId;
             HttpClient.postJson(url, head, gson.toJson(tdata),new IXPCallBack(plugin,tdata));
         }
-        //ÔËĞĞÍêÒ»´ÎºóÉ¾³ı×Ô¼º
+        //è¿è¡Œå®Œä¸€æ¬¡ååˆ é™¤è‡ªå·±
         dataList.remove(this);
     }
 

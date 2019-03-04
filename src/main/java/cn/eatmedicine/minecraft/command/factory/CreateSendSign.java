@@ -26,14 +26,14 @@ public class CreateSendSign implements IHandleCommand {
 
     @Override
     public boolean handleCommand() {
-        //Èç¹ûÊÇ·¢ËÍÅÆ£¬¼ì²â·¢ËÍÅÆÊÇ·ñÔÚ·şÎñÆ÷ÅäÖÃÀï
+        //å¦‚æœæ˜¯å‘é€ç‰Œï¼Œæ£€æµ‹å‘é€ç‰Œæ˜¯å¦åœ¨æœåŠ¡å™¨é…ç½®é‡Œ
         serverIds server = plugin.cm.hasServer(serverName);
         if (server == null) {
-            sender.sendMessage("¸Ã·şÎñÆ÷ÃûÎŞĞ§\n");
+            sender.sendMessage("è¯¥æœåŠ¡å™¨åæ— æ•ˆ\n");
             return false;
         }
         if (server.isEnable() == false) {
-            sender.sendMessage("¸Ã·şÎñÆ÷Ãû²»´æÔÚ»òÒÑ×¢Ïú\n");
+            sender.sendMessage("è¯¥æœåŠ¡å™¨åä¸å­˜åœ¨æˆ–å·²æ³¨é”€\n");
             return false;
         }
         Player player;
@@ -46,24 +46,24 @@ public class CreateSendSign implements IHandleCommand {
         Block block = player.getTargetBlock(null, 20);
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
-            sender.sendMessage("Ö¸ÏòµÄ·½¿é²»ÊÇÒ»¸öÅÆ×Ó\n");
+            sender.sendMessage("æŒ‡å‘çš„æ–¹å—ä¸æ˜¯ä¸€ä¸ªç‰Œå­\n");
             return false;
         }
 
         IXPData ixp = BlockAnalysis.GetIXP(sign, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("¸ÃÅÆ×Ó²»ÊÇIXPÅÆ×Ó\n");
+            player.sendMessage("è¯¥ç‰Œå­ä¸æ˜¯IXPç‰Œå­\n");
             return false;
         }
         if (player.hasPermission("ixp.admin") == false) {
-            player.sendMessage("ÎŞÈ¨ÏŞ´´½¨IXPÅÆ×Ó\n");
+            player.sendMessage("æ— æƒé™åˆ›å»ºIXPç‰Œå­\n");
             return false;
         }
         Location site = block.getLocation();
         Database db = new Database(plugin);
         String worldName = block.getWorld().getName();
         if (db.selectSign(site.getBlockX(), site.getBlockY(), site.getBlockZ(), worldName) != null) {
-            sender.sendMessage("¸ÃÅÆ×ÓÒÑ´æÔÚ");
+            sender.sendMessage("è¯¥ç‰Œå­å·²å­˜åœ¨");
             return false;
         }
         sign.setLine(2, serverName);
@@ -72,7 +72,7 @@ public class CreateSendSign implements IHandleCommand {
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
 
-        player.sendMessage("³É¹¦´´½¨Ò»¸öIXPÅÆ×Ó\n");
+        player.sendMessage("æˆåŠŸåˆ›å»ºä¸€ä¸ªIXPç‰Œå­\n");
         return true;
     }
 

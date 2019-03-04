@@ -19,7 +19,7 @@ import cn.eatmedicine.minecraft.IXPData.IXPData;
 
 public class Tools {
 
-    // ÔÚlistÖĞÑ°ÕÒºÍdataÆ¥ÅäµÄtask
+    // åœ¨listä¸­å¯»æ‰¾å’ŒdataåŒ¹é…çš„task
     public static ClickTask findTask(List<ClickTask> list, IXPData data, Player player) {
         Iterator<ClickTask> iter = list.iterator();
         while (iter.hasNext()) {
@@ -42,7 +42,7 @@ public class Tools {
                 file.createNewFile();
                 plugin.saveResource(fileName, true);
             } catch (IOException e) {
-                // TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+                // TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
                 e.printStackTrace();
             }
         }
@@ -100,8 +100,8 @@ public class Tools {
             sender.sendMessage("/ixp inv clear [player] -- Clear all items of a "
                     + "specific player (sender)\n");
         }
-        sender.sendMessage("/ixp spass [password] -- ÊäÈë·¢ËÍÃÜÂë\n");
-        sender.sendMessage("/ixp rpass [password] -- ÊäÈë½ÓÊÕÃÜÂë\n");
+        sender.sendMessage("/ixp spass [password] -- è¾“å…¥å‘é€å¯†ç \n");
+        sender.sendMessage("/ixp rpass [password] -- è¾“å…¥æ¥æ”¶å¯†ç \n");
         return;
     }
 

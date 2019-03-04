@@ -1,6 +1,6 @@
 package cn.eatmedicine.minecraft.IXPData;
 
-//Êı¾İµÄÀàĞÍ
+//æ•°æ®çš„ç±»å‹
 public enum IXPType {
     SEND, RECEIVE, UNDEFINED;
     private static final String IXPSend = "SEND";

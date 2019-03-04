@@ -38,31 +38,31 @@ public class SignChangeEventListener implements Listener {
         }
         Player player = event.getPlayer();
         if (player.hasPermission("ixp.admin") == false) {
-            player.sendMessage("ÎŞÈ¨ÏŞ´´½¨IXPÅÆ×Ó");
+            player.sendMessage("æ— æƒé™åˆ›å»ºIXPç‰Œå­");
             return;
         }
         IXPData ixp = BlockAnalysis.GetIXP(lines, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("IXPÅÆ×Ó¸ñÊ½´íÎó");
+            player.sendMessage("IXPç‰Œå­æ ¼å¼é”™è¯¯");
             return;
         }
-        //Èç¹ûÊÇ·¢ËÍÅÆ£¬¼ì²â·¢ËÍÅÆÊÇ·ñÔÚ·şÎñÆ÷ÅäÖÃÀï*
+        //å¦‚æœæ˜¯å‘é€ç‰Œï¼Œæ£€æµ‹å‘é€ç‰Œæ˜¯å¦åœ¨æœåŠ¡å™¨é…ç½®é‡Œ*
         if(ixp.getType()==IXPType.SEND){
             serverIds server = plugin.cm.hasServer(lines[2]);
             if (server == null && ixp.getType() != IXPType.RECEIVE) {
-                player.sendMessage("¸Ã·şÎñÆ÷ÃûÎŞĞ§");
+                player.sendMessage("è¯¥æœåŠ¡å™¨åæ— æ•ˆ");
                 return;
             }
             if (server.isEnable() == false) {
-                player.sendMessage("¸Ã·şÎñÆ÷Ãû²»´æÔÚ»òÒÑ×¢Ïú");
+                player.sendMessage("è¯¥æœåŠ¡å™¨åä¸å­˜åœ¨æˆ–å·²æ³¨é”€");
                 return;
             }
         }
-        player.sendMessage("´´½¨Ò»¸öIXPÅÆ×Ó");
+        player.sendMessage("åˆ›å»ºä¸€ä¸ªIXPç‰Œå­");
         Location site = block.getLocation();
         Database db = new Database(plugin);
         String worldName = block.getWorld().getName();
-        //Èç¹ûÊÇ½ÓÊÕÅÆ
+        //å¦‚æœæ˜¯æ¥æ”¶ç‰Œ
         if (ixp.getType() == IXPType.RECEIVE)
             db.addSign(site.getBlockX(), site.getBlockY(), site.getBlockZ(), worldName, null, 1, ixp.getFee(), 1);
         else

@@ -25,10 +25,10 @@ public class BlockAnalysis {
         return false;
     }
 
-    //´Óblock»ñÈ¡Ò»¸öSignÅÆ×ÓµÄ¶ÔÏó£¬Èç¹ûblock²»ÊôÓÚSignÔò·µ»Ønull
+    //ä»blockè·å–ä¸€ä¸ªSignç‰Œå­çš„å¯¹è±¡ï¼Œå¦‚æœblockä¸å±äºSignåˆ™è¿”å›null
     public static Sign GetSign(Block block) {
         BlockState bs = block.getState();
-        //Èç¹ûblockÊôÓÚSign
+        //å¦‚æœblockå±äºSign
         if (bs instanceof Sign) {
             Sign sign = (Sign) bs;
             return sign;
@@ -36,14 +36,14 @@ public class BlockAnalysis {
         return null;
     }
 
-    //ÅĞ¶ÏÊÇ·ñÊÇ·ûºÏIXP¸ñÊ½µÄÅÆ×Ó
+    //åˆ¤æ–­æ˜¯å¦æ˜¯ç¬¦åˆIXPæ ¼å¼çš„ç‰Œå­
     public static IXPData GetIXP(Sign sign, String fromServer, JavaPlugin plugin) {
         String line1 = sign.getLine(0);
         String line2 = sign.getLine(1);
         String line3 = sign.getLine(2);
         String line4 = sign.getLine(3);
 
-        //Ç°Á½ĞĞ²»Æ¥Åä
+        //å‰ä¸¤è¡Œä¸åŒ¹é…
         if (!line1.equals(IXPFirstLine)) {
             return null;
         }
@@ -51,11 +51,11 @@ public class BlockAnalysis {
         if (type == IXPType.UNDEFINED)
             return null;
 
-        //Èç¹ûÊÇ·¢ËÍÖÖÀàÇÒµÚÈıĞĞÎª¿Õ Ôò´íÎó
+        //å¦‚æœæ˜¯å‘é€ç§ç±»ä¸”ç¬¬ä¸‰è¡Œä¸ºç©º åˆ™é”™è¯¯
         if (type == IXPType.SEND && line3.equals(""))
             return null;
 
-        //µÚËÄĞĞÊÇ·ñÆ¥ÅäÎªÊı×Ö
+        //ç¬¬å››è¡Œæ˜¯å¦åŒ¹é…ä¸ºæ•°å­—
         double fee;
         try {
             fee = Double.parseDouble(line4);
@@ -63,13 +63,13 @@ public class BlockAnalysis {
             return null;
         }
         IXPData data = new IXPData(type, fee, fromServer, line3);
-        //ÕâÀï»¹È±ÉÙÒ»¸öÅĞ¶Ï·şÎñÆ÷Ãû×ÖÊÇ·ñÕıÈ·
+        //è¿™é‡Œè¿˜ç¼ºå°‘ä¸€ä¸ªåˆ¤æ–­æœåŠ¡å™¨åå­—æ˜¯å¦æ­£ç¡®
         //
 
         return data;
     }
 
-    //ÅĞ¶ÏÊÇ·ñÊÇ·ûºÏIXP¸ñÊ½µÄÅÆ×Ó
+    //åˆ¤æ–­æ˜¯å¦æ˜¯ç¬¦åˆIXPæ ¼å¼çš„ç‰Œå­
     public static IXPData GetIXP(String[] lines, String fromServer, JavaPlugin plugin) {
         if (lines.length < 3)
             return null;
@@ -78,7 +78,7 @@ public class BlockAnalysis {
         String line3 = lines[2];
         String line4 = lines[3];
 
-        //Ç°Á½ĞĞ²»Æ¥Åä
+        //å‰ä¸¤è¡Œä¸åŒ¹é…
         if (!line1.equals(IXPFirstLine)) {
             return null;
         }
@@ -86,11 +86,11 @@ public class BlockAnalysis {
         if (type == IXPType.UNDEFINED)
             return null;
 
-        //Èç¹ûÊÇ·¢ËÍÖÖÀàÇÒµÚÈıĞĞÎª¿Õ Ôò´íÎó
+        //å¦‚æœæ˜¯å‘é€ç§ç±»ä¸”ç¬¬ä¸‰è¡Œä¸ºç©º åˆ™é”™è¯¯
         if (type == IXPType.SEND && line3.equals(""))
             return null;
 
-        //µÚËÄĞĞÊÇ·ñÆ¥ÅäÎªÊı×Ö
+        //ç¬¬å››è¡Œæ˜¯å¦åŒ¹é…ä¸ºæ•°å­—
         int fee;
         try {
             fee = Integer.parseInt(line4);

@@ -43,7 +43,7 @@ public class SignManager {
         }
     }
 
-    //»ñÈ¡ÅÆ×ÓËù¸½×ÅµÄ·½¿é
+    //è·å–ç‰Œå­æ‰€é™„ç€çš„æ–¹å—
     public static Block getAttachedBlock(Block block) {
         Sign s = BlockAnalysis.GetSign(block);
         if (s != null) {
@@ -53,7 +53,7 @@ public class SignManager {
         return null;
     }
 
-    //Èç¹ûblockÊÇÒ»¸öÒÑ¼ÇÂ¼µÄIXPÅÆ×Ó£¬»ñÈ¡ÆäSignData
+    //å¦‚æœblockæ˜¯ä¸€ä¸ªå·²è®°å½•çš„IXPç‰Œå­ï¼Œè·å–å…¶SignData
     public SignData getIXPSign(Block block) {
         if (block == null)
             return null;
@@ -69,7 +69,7 @@ public class SignManager {
         return null;
     }
 
-    //blockÊÇ·ñÊÇÒ»¸öÒÑ¾­¼ÇÂ¼µÄIXPÅÆ×Ó
+    //blockæ˜¯å¦æ˜¯ä¸€ä¸ªå·²ç»è®°å½•çš„IXPç‰Œå­
     public boolean isIXPSign(Block block) {
         if (block == null)
             return false;
@@ -84,7 +84,7 @@ public class SignManager {
         return false;
     }
 
-    //ÅĞ¶ÏBlockÊÇ·ñÊÇÔÚ±»IXP¸½×Å
+    //åˆ¤æ–­Blockæ˜¯å¦æ˜¯åœ¨è¢«IXPé™„ç€
     public boolean isAttachBlock(Block block) {
         if (block == null)
             return false;

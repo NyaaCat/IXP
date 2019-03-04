@@ -33,26 +33,26 @@ public class RemoveSign implements IHandleCommand {
         Block block = player.getTargetBlock(null, 20);
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
-            sender.sendMessage("指向的方块不是一个牌子\n");
+            sender.sendMessage("鎸囧悜鐨勬柟鍧椾笉鏄竴涓墝瀛怽n");
             return false;
         }
         IXPData ixp = BlockAnalysis.GetIXP(sign, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("该牌子不是IXP牌子\n");
+            player.sendMessage("璇ョ墝瀛愪笉鏄疘XP鐗屽瓙\n");
             return false;
         }
         Database db = new Database(plugin);
         SignData sdata = db.selectSign(block.getX(), block.getY(), block.getZ(),
                 block.getWorld().getName());
         if (sdata == null || sdata.isEnable == 0) {
-            sender.sendMessage("该牌子不在数据库中或已关闭\n");
+            sender.sendMessage("璇ョ墝瀛愪笉鍦ㄦ暟鎹簱涓垨宸插叧闂璡n");
             return false;
         }
         db.deleteSign(block.getX(), block.getY(), block.getZ(),
                 block.getWorld().getName());
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
-        sender.sendMessage("删除成功\n");
+        sender.sendMessage("鍒犻櫎鎴愬姛\n");
         return true;
     }
 }
