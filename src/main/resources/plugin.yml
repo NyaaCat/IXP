@@ -2,10 +2,11 @@ name: IXP
 main: cat.nyaa.ixp.IXPPlugin
 description: "IXP"
 version: 1.0
+api-version: 1.13
 depend: [NyaaCore]
 authors: [ReinWD]
 website: "https://github.com/NyaaCat/IXP"
-database: false
+database: true
 
 commands:
   ixp:

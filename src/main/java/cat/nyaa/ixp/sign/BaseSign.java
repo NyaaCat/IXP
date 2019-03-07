@@ -5,42 +5,34 @@ import cat.nyaa.ixp.IXPPlugin;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashSet;
-import java.util.UUID;
 
 /**
  * @author ReinWD
  * created @ 2019/2/4
  */
 public abstract class BaseSign {
-    protected Sign sign;
-    private IXPPlugin plugin;
+    final Sign sign;
     protected int tickSinceClick = 0;
-    protected int timeout;
-    private HashSet<UUID> clickQueue;
+    final int timeout;
 
-    BaseSign(IXPPlugin plugin, Sign sign, int timeout) {
-        this.plugin = plugin;
+    BaseSign(Sign sign, int timeout) {
         this.timeout = timeout;
         this.sign = sign;
-        clickQueue = new HashSet<>();
     }
 
     public static BaseSign create(IXPPlugin plugin, Sign sign, int timeout) {
         String type = sign.getLine(1);
         type = type.toUpperCase();
-        BaseSign result;
+        BaseSign result = null;
         switch (type) {
             case "SEND":
-                result = new SendSign(plugin, sign, timeout);
+                result = new SendSign(sign, timeout);
                 break;
             case "RECEIVE":
-                result = new ReceiveSign(plugin, sign, timeout);
+                result = new ReceiveSign(sign, timeout);
                 break;
             default:
-                throw new RuntimeException();
+                SignManager.tryRepair(sign);
         }
         return result;
     }
@@ -49,32 +41,37 @@ public abstract class BaseSign {
 
     public abstract void onSingleClick(Player player);
 
-    public abstract void onDoubleClick(Player player, PlayerInteractEvent event);
+    public abstract void onDoubleClick(Player player);
 
-    public abstract void onPassword(Player player, boolean correct);
+    protected abstract void iOnPassword(Player player, String correct);
 
     public void onPlayerRightClick(Player player, PlayerInteractEvent event) {
-        UUID uuid = player.getUniqueId();
-        if (!clickQueue.contains(uuid)) {
-            clickQueue.add(uuid);
-            onSingleClick(player);
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    onTimeExceeded(player);
-                }
-            }.runTaskLater(plugin, 20*timeout);
-        } else {
-            clickQueue.remove(uuid);
-            onDoubleClick(player, event);
-        }
+        SignManager.onInteract(this, player);
+//        UUID uuid = player.getUniqueId();
+//        if (!clickQueue.contains(uuid)) {
+//            clickQueue.add(uuid);
+//            onSingleClick(player);
+//            new BukkitRunnable() {
+//                @Override
+//                public void run() {
+//                    onTimeExceeded(player);
+//                }
+//            }.runTaskLater(plugin, 20*timeout);
+//        } else {
+//            removeFromQueue(uuid);
+//            onDoubleClick(player);
+//        }
     }
 
-    private void onTimeExceeded(Player player) {
-        if (clickQueue.contains(player.getUniqueId())) {
-            player.sendMessage(I18n.format("sign.timeout"));
-            clickQueue.remove(player.getUniqueId());
-        }
+    void onPassword(Player player, String password){
+        iOnPassword(player,password);
     }
 
+    void onTimeExceeded(Player player) {
+            player.sendMessage(I18n.format("info.timeout"));
+    }
+
+    void onAbort(Player player){
+        player.sendMessage("info.abort");
+    }
 }

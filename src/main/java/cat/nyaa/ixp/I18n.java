@@ -8,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * created @ 2019/2/4
  */
 public class I18n extends LanguageRepository {
-    JavaPlugin plugin;
+    private final JavaPlugin plugin;
     private static I18n instance;
-    String lang = null;
+    private final String lang;
 
     public I18n(JavaPlugin plugin, String lang) {
         this.plugin = plugin;

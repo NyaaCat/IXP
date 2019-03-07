@@ -2,18 +2,15 @@ package cat.nyaa.ixp.sign;
 
 import cat.nyaa.ixp.I18n;
 import cat.nyaa.ixp.IXPPlugin;
+import cat.nyaa.ixp.eco.EcoManager;
+import cat.nyaa.ixp.net.client.TransactionManager;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ReceiveSign extends BaseSign {
 
-    private String mSingleClickHint = I18n.format("sign.receive_single_hint");
-    private String mSuccessHint = I18n.format("sign.receive_success");
-    private String mWrongPassHint = I18n.format("sign.receive_wrong_pass");
-
-    ReceiveSign(IXPPlugin plugin, Sign sign, int timeout) {
-        super(plugin, sign, timeout);
+    ReceiveSign(Sign sign, int timeout) {
+        super(sign, timeout);
     }
 
     @Override
@@ -23,21 +20,44 @@ public class ReceiveSign extends BaseSign {
 
     @Override
     public void onSingleClick(Player player) {
-        player.sendMessage(mSingleClickHint);
+        player.sendMessage(I18n.format("info.receive_single_hint"));
     }
 
     @Override
-    public void onDoubleClick(Player player, PlayerInteractEvent event) {
-        player.sendMessage(mSuccessHint);
+    public void onDoubleClick(Player player) {
+//        player.sendMessage(mReceiveHint);
+        takeItem(player);
     }
 
-    @Override
-    public void onPassword(Player player, boolean correct) {
-        if (correct){
-            player.sendMessage(mSuccessHint);
-        }{
-            player.sendMessage(mWrongPassHint);
+    private void takeItem(Player player) {
+        EcoManager eco = EcoManager.getInstance();
+        IXPPlugin plugin = IXPPlugin.getInstance();
+        double receiveFee = plugin.getReceiveFee();
+        if (eco.hasEnoughMoney(player, receiveFee)){
+            if (TransactionManager.getInstance().takeByPlayer(player)) {
+                eco.withdrawPlayer(player, receiveFee);
+            }
+        }else {
+            player.sendMessage(I18n.format("info.no_enough_money"));
         }
+    }
+
+    private void takeItem(Player player, String password) {
+        EcoManager eco = EcoManager.getInstance();
+        IXPPlugin plugin = IXPPlugin.getInstance();
+        double receiveFee = plugin.getReceiveFee();
+        if (eco.hasEnoughMoney(player, receiveFee)){
+            if (TransactionManager.getInstance().takeByPassword(player,password)) {
+                eco.withdrawPlayer(player, receiveFee);
+            }
+        }else {
+            player.sendMessage(I18n.format("info.no_enough_money"));
+        }
+    }
+
+    @Override
+    protected void iOnPassword(Player player, String correct) {
+        takeItem(player, correct);
     }
 
 }

@@ -26,3 +26,9 @@ misc:
   password-length: 16 # maximum characters allowed for passwords
   password-timeout: 30  # seconds after first interaction with sign
   slot-limit: 16  # item slots a player (sender) can use
+database:
+  provider: sqlite
+  connection:
+    autoscan: true
+    package: cat.nyaa.ixp.database
+    file: ixp.db

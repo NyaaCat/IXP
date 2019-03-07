@@ -1,7 +1,10 @@
 package cat.nyaa.ixp;
 
 import cat.nyaa.ixp.conf.Configuration;
+import cat.nyaa.ixp.net.client.Transaction;
+import cat.nyaa.ixp.net.client.TransactionManager;
 import cat.nyaa.ixp.sign.SignManager;
+import cat.nyaa.ixp.utils.InvUtils;
 import cat.nyaa.nyaacore.CommandReceiver;
 import cat.nyaa.nyaacore.ILocalizer;
 import org.bukkit.Bukkit;
@@ -11,15 +14,19 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 /**
  * @author ReinWD
  * created @ 2019/2/4
  */
+@SuppressWarnings("package")
 public class CommandHandler extends CommandReceiver {
-    private IXPPlugin plugin;
+    private final IXPPlugin plugin;
     private double receiveFee;
     private double sendFee;
 
@@ -34,8 +41,8 @@ public class CommandHandler extends CommandReceiver {
     }
 
     public void loadFee(Configuration configuration){
-        receiveFee = configuration.fee.get("receive");
-        sendFee = configuration.fee.get("send");
+        receiveFee = configuration.fee.get("receive").doubleValue();
+        sendFee = configuration.fee.get("send").doubleValue();
     }
 
     @SubCommand("sign")
@@ -45,8 +52,9 @@ public class CommandHandler extends CommandReceiver {
                 Player player = (Player) sender;
                 //note: player.getTargetBlock will fail when other signs is in the way to the actual target
                 Block targetBlock = player.getTargetBlock(null, 5);
-                if (!targetBlock.getBlockData().getMaterial().equals(Material.WALL_SIGN)) {
-                    sender.sendMessage("error.not_player");
+                Material material = targetBlock.getBlockData().getMaterial();
+                if (!material.equals(Material.WALL_SIGN)&&!material.equals(Material.SIGN)) {
+                    sender.sendMessage(I18n.format("error.not_sign"));
                 } else {
                     BlockState state = targetBlock.getState();
                     if (state instanceof Sign) {
@@ -59,7 +67,7 @@ public class CommandHandler extends CommandReceiver {
                                 sender.sendMessage(I18n.format("error.create_not_valid_server"));
                             } else {
                                 SignManager instance = SignManager.getInstance();
-                                if (instance.hasSignAt(targetBlock.getLocation())) {
+                                if (SignManager.hasSignAt(targetBlock.getLocation())) {
                                     sender.sendMessage(I18n.format("error.create_already_registered"));
                                     return;
                                 }else {
@@ -82,22 +90,38 @@ public class CommandHandler extends CommandReceiver {
                             }
                         } else if ("REMOVE".equals(subCommand.toUpperCase())) {
                             SignManager instance = SignManager.getInstance();
-                            if (instance.hasSignAt(targetBlock.getLocation())){
+                            if (SignManager.hasSignAt(targetBlock.getLocation())){
                                 instance.removeSign(targetBlock.getLocation(), ((Sign) state), player);
+                                player.sendMessage(I18n.format("info.remove_success"));
                             }else {
                                 sender.sendMessage(I18n.format("error.remove_not_created"));
                             }
                         }
+                    }else {
+                        sender.sendMessage(I18n.format("error.not_sign"));
                     }
                 }
-            } else {
-                sender.sendMessage(I18n.format("permission.admin"));
+            }else {
+                sender.sendMessage(I18n.format("error.not_player"));
             }
+        }else {
+            sender.sendMessage(I18n.format("permission.admin"));
         }
     }
 
     private boolean isValidId(String serverId) {
         return plugin.config.serverIds.containsKey(serverId);
+    }
+
+    @SubCommand("temp")
+    public void tempInvCommand(CommandSender sender, Arguments arguments){
+        if (!(sender instanceof Player)){
+            sender.sendMessage("error.not_player");
+            return;
+        }
+        Player player = (Player) sender;
+        Inventory tempInv = InvUtils.getTempInv(player);
+        player.openInventory(tempInv);
     }
 
     @SubCommand("inv")
@@ -107,8 +131,44 @@ public class CommandHandler extends CommandReceiver {
 
     @SubCommand("pass")
     public void passCommand(CommandSender sender, Arguments arguments) {
+        if (!(sender instanceof Player)){
+            sender.sendMessage(I18n.format("error.not_player"));
+            return;
+        }
+        Player player = (Player) sender;
         String passwd = arguments.nextString();
-        //todo check passwd
+        SignManager.getInstance().onPassword(player, passwd);
+    }
+
+    @SubCommand("list")
+    public void getTransactionList(CommandSender sender, Arguments arguments){
+        if (!isAdmin(sender)){
+            sender.sendMessage(I18n.format("permission.admin"));
+        }
+        String action = arguments.nextString();
+        switch (action) {
+            case "unfinished":
+                TransactionManager tm = TransactionManager.getInstance();
+                List<Transaction> transactionList = tm.queryUnfinished(sender);
+                if (transactionList.size()==0) {
+                    sender.sendMessage(I18n.format("info.no_transaction"));
+                    return;
+                }else {
+                    transactionList.forEach(transaction -> this.sendTransaction(sender, transaction));
+                }
+                break;
+            case "finished":
+            case "all":
+            default:
+                //todo support full query
+                sender.sendMessage("error.unsupported");
+                break;
+        }
+    }
+
+    private void sendTransaction(CommandSender sender, Transaction transaction) {
+        Player player = sender.getServer().getPlayer(UUID.fromString(transaction.getSender()));
+        sender.sendMessage(I18n.format("info.transaction",transaction.getTimeStamp() ,transaction.getOrigin(), player.getName()));
     }
 
     private boolean isAdmin(CommandSender sender) {

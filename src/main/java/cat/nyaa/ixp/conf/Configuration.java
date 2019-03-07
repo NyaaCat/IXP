@@ -10,7 +10,7 @@ import java.util.Map;
  * created @ 2019/2/4
  */
 public class Configuration extends PluginConfigure {
-    JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     @Serializable
     public String lang = null;
@@ -19,13 +19,13 @@ public class Configuration extends PluginConfigure {
     @Serializable
     public String psk;
     @Serializable
-    public Map<String, String> http;
+    public Map<String, Integer> http;
     @Serializable(name = "server-ids")
     public Map<String, ServerId> serverIds;
     @Serializable
-    public Map<String, Double> fee;
+    public Map<String, Number> fee;
     @Serializable
-    public Map<String, String> misc;
+    public Map<String, Object> misc;
 
 
     public Configuration(JavaPlugin plugin) {
