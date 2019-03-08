@@ -11,7 +11,6 @@ import java.util.Map;
 
 class SignInfo extends FileConfigure {
     @Serializable
-    private
     Map<String, IList> info;
 
     @Override
@@ -38,7 +37,7 @@ class SignInfo extends FileConfigure {
         signMap.forEach((s, strings) -> info.put(s, new IList(strings)));
     }
 
-    static class IList implements ISerializable{
+    public static class IList implements ISerializable{
         @Serializable
         List<String> list;
 

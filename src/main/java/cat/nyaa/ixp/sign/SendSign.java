@@ -43,13 +43,20 @@ public class SendSign extends BaseSign {
             return;
         }
         HttpClient.HttpCallback callback = (ctx, response, throwable) -> {
-            HttpResponseStatus status = response.status();
+            HttpResponseStatus status;
+            if (throwable != null) {
+                status = HttpResponseStatus.NOT_FOUND;
+            } else {
+                status = response.status();
+            }
             if (status.equals(HttpResponseStatus.CREATED)) {
                 SendSign.this.doOnSuccess(player, itemInMainHand);
             } else if (status.equals(HttpResponseStatus.BAD_REQUEST) ||
                     status.equals(HttpResponseStatus.UNAUTHORIZED) ||
                     status.equals(HttpResponseStatus.INTERNAL_SERVER_ERROR) ||
-                    status.equals(HttpResponseStatus.SERVICE_UNAVAILABLE)) {
+                    status.equals(HttpResponseStatus.SERVICE_UNAVAILABLE)||
+                    status.equals(HttpResponseStatus.NOT_FOUND)
+            ) {
                 onError(player, itemInMainHand, status);
             }
         };
@@ -60,9 +67,9 @@ public class SendSign extends BaseSign {
             int heldItemSlot = inventory1.getHeldItemSlot();
             inventory1.setItem(heldItemSlot, new ItemStack(Material.AIR));
 //            InventoryUtils.removeItem(player,itemInMainHand, itemInMainHand.getAmount());
-            Sender.getInstance().sendItemTo(itemInMainHand, sign.getLine(2), player,password , callback);
+            Sender.getInstance().sendItemTo(itemInMainHand, sign.getLine(2), player, password, callback);
             eco.withdrawPlayer(player, sendFee);
-        }else {
+        } else {
             player.sendMessage(I18n.format("info.no_enough_money"));
         }
     }

@@ -9,6 +9,7 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -18,6 +19,7 @@ import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class Receiver implements HttpRequestListener {
     private static Receiver INSTANCE;
@@ -97,6 +99,7 @@ public class Receiver implements HttpRequestListener {
             }
             if (content==null){
                 status = HttpResponseStatus.BAD_REQUEST;
+                IXPPlugin.getInstance().getLogger().log(Level.INFO, "received null content");
                 return status;
             }
             String[] split = content.split("\n");
@@ -116,6 +119,7 @@ public class Receiver implements HttpRequestListener {
             }
             if (!checkPayload(payload)) {
                 status = HttpResponseStatus.BAD_REQUEST;
+                IXPPlugin.getInstance().getLogger().log(Level.INFO, "received bad request");
                 return status;
             }
             if (TransactionManager.getInstance().playerHasEnoughSlot(payload.get("sender"))) {
@@ -153,7 +157,7 @@ public class Receiver implements HttpRequestListener {
                 if (origin == null) ret = false;
 
                 String sender = payload.get("sender");
-                Player player = plugin.getServer().getPlayer(UUID.fromString(sender));
+                OfflinePlayer player = plugin.getServer().getOfflinePlayer(UUID.fromString(sender));
                 if (player == null) ret = false;
 
                 String item = payload.get("item");
@@ -165,6 +169,7 @@ public class Receiver implements HttpRequestListener {
                 Long.valueOf(payload.get("timestamp"));
             }
         } catch (Exception e) {
+            IXPPlugin.getInstance().getLogger().log(Level.SEVERE, "bad request",e);
             return false;
         }
         return ret;

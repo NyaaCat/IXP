@@ -7,6 +7,7 @@ import cat.nyaa.nyaacore.database.DatabaseUtils;
 import cat.nyaa.nyaacore.database.relational.Query;
 import cat.nyaa.nyaacore.database.relational.RelationalDB;
 import cat.nyaa.nyaacore.utils.ItemStackUtils;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -126,7 +127,7 @@ public class TransactionManager {
 
     boolean playerHasEnoughSlot(String sender) {
         IXPPlugin plugin = IXPPlugin.plugin;
-        Player player = plugin.getServer().getPlayer(UUID.fromString(sender));
+        OfflinePlayer player = plugin.getServer().getOfflinePlayer(UUID.fromString(sender));
         if (player == null) return false;
         try (Query<Transaction> query = relationalDB.query(Transaction.class).whereEq(retrievedStr, Boolean.FALSE)) {
             int size = query.select().size();

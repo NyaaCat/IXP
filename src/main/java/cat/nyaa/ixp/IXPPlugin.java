@@ -107,6 +107,10 @@ public class IXPPlugin extends JavaPlugin {
         return config.psk;
     }
 
+    public String getPsk(String server){
+        return config.serverIds.get(server).psk;
+    }
+
     public int getMaxSlot() {
         Object o = config.misc.get("slot-limit");
         return o == null? 16: (int) o;

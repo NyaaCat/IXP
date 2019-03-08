@@ -59,7 +59,7 @@ public class Sender {
         writeString(content, String.format("timestamp: %s\n", transaction.getTimeStamp()));
         HttpHeaders headers = request.headers();
         headers.set("content-length", content.readableBytes());
-        headers.set("psk", IXPPlugin.getInstance().getPsk());
+        headers.set("psk", IXPPlugin.getInstance().getPsk(server));
         return request;
     }
 
