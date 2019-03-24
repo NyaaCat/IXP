@@ -1,0 +1,51 @@
+log:
+  error:
+    vault_not_find: Missing Vault, initialization failed
+    default: Plugin Error
+  info:
+    loading: IXP Loading
+    protect_loading: IXP sign protect loading
+message:
+  command:
+    not_permission: You do not have permission to the command
+    only_player_can_use: Only players can use this command
+    not_find_player: Did not find the player
+    not_find_acquire_item: No items available
+    not_enough_money: Not enough money to get the next item
+    inventory_full: Inventory is full, please clean up enough space and try again
+    success_delete_item: Success delete %d items
+    pointing_square_not_ixp: The square pointed to is not an IXP Sign
+    sign_not_ixpSign: This sign is not an IXP sign
+    not_permission_create_ixpSign: No permission to create the IXP sign
+    ixpSign_already_exist: Sign already exists
+    ixpSign_create_success: Successfully created the IXP sign
+    ixpSign_not_find_database: This sign is not in the database or disabled
+    ixpSign_delete_success: Successfully deleted the IXP sign
+    not_find_server: No such server or disabled
+    server_disabled: No such server or disabled
+    not_right_click_sign: You need to right click on the IXP sign before you can send items.
+    cannot_use_this_psw: The password is a reserved password, please try another password
+    psw_too_long: Password length must be less than %d
+    main_hand_empty: The main hand is empty
+  send:
+    callback_201: Send Success
+    callback_400: Bad Request
+    callback_401: Authentication Failure
+    callback_500: Internal plugin error
+    callback_503: Service unavailable - You don't have enough slots on the remote server
+  interact:
+    ixpSign_not_find_database: This sign is not in the database or disabled
+    not_enough_money: Not enough money to get the next item
+    not_find_acquire_item: No items available
+    inventory_full: Inventory is full, please clean up enough space and try again
+    input_send_psw: Please enter your password in %d seconds to send the item.
+  sign:
+    format_error: IXP format error
+  helper:
+    create_send: Create an IXP sign that sends the item to the specified server
+    create_receive: Create an IXP sign to receive items
+    remove: remove IXP sign
+    acquire_all: Get all the items sent by a player
+    clear: Clear all items sent by a player
+    spass: Enter the send password
+    rpass: Enter the receive password

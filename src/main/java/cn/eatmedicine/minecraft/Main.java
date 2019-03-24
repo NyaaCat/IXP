@@ -8,6 +8,7 @@ import cat.nyaa.nyaacore.http.server.TinyHttpServer;
 import cat.nyaa.nyaacore.utils.VaultUtils;
 import cn.eatmedicine.minecraft.http.IXPResponder;
 import cn.eatmedicine.minecraft.task.InputPswTask;
+import cn.eatmedicine.minecraft.utils.LangUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,21 +27,23 @@ public class Main extends JavaPlugin {
     public TinyHttpServer tinyHttpServer;
     public List<InputPswTask> waitInputPswList;
     public Economy economy = null;
+    public LangUtils lang = null;
 
     @Override
     public void onEnable() {
-        getLogger().info("IXP插件正在加载");
         loadConfig();
         //Used for management and protection of sign
         sm = new SignManager(this);
         //For config management
         cm = new ConfigManager(this);
+        //load language
+        lang = new LangUtils(this,cm.config.getString("lang"));
         //Variables for entering a send password in the sending item
         waitInputPswList = new ArrayList<>();
         //Operation about Economy
         economy = VaultUtils.getVaultEconomy();
         if(initVault()==false){
-            this.getLogger().info("Cannot find Vault plugin, Init fail");
+            this.getLogger().info(lang.format("log.error.vault_not_find"));
             return;
         }
 
@@ -56,7 +59,7 @@ public class Main extends JavaPlugin {
             tinyHttpServer = new TinyHttpServer(new IXPResponder(this),port,port);
         }
         catch (Exception ex){
-            this.getLogger().info("Server has some wrong");
+            this.getLogger().info(lang.format("log.error.default"));
         }
     }
 

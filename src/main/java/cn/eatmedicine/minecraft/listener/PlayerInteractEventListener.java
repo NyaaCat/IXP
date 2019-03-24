@@ -52,7 +52,7 @@ public class PlayerInteractEventListener implements Listener {
             //如果分析Block是一个牌子则继续
             if (sign != null) {
                 if (isSignEnable(event.getClickedBlock().getLocation()) == false) {
-                    player.sendMessage("该牌子未设置或者未启用");
+                    player.sendMessage(plugin.lang.format("message.interact.ixpSign_not_find_database"));
                     return;
                 }
                 //然后分析牌子的内容，得出信息
@@ -64,7 +64,7 @@ public class PlayerInteractEventListener implements Listener {
                 if (data != null) {
                     OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(player.getUniqueId());
                     if(plugin.economy.has(offlinePlayer,data.getFee())==false){
-                        player.sendMessage("You don't have enough money");
+                        player.sendMessage(plugin.lang.format("message.interact.not_enough_money"));
                         return;
                     }
                     //Send Sign
@@ -85,19 +85,19 @@ public class PlayerInteractEventListener implements Listener {
                     else{
                         List<TransData> list = db.SelectTransDataByUuid(player.getUniqueId().toString());
                         if(list.size()==0){
-                            player.sendMessage("There are no items to be acquired");
+                            player.sendMessage(plugin.lang.format("message.interact.not_find_acquire_item"));
                             return;
                         }
                         for(TransData tdata : list){
                             //Check if the player account has money to get the next item
                             if(plugin.economy.has(offlinePlayer,data.getFee())==false){
-                                player.sendMessage("You don't have enough money to get the next item ");
+                                player.sendMessage(plugin.lang.format("message.interact.not_enough_money"));
                                 return;
                             }
                             //Check inventory has empty
                             Inventory inventory = player.getInventory();
                             if(inventory.firstEmpty()==-1){
-                                player.sendMessage("Your inventory already full，please clear your inventory and try again");
+                                player.sendMessage(plugin.lang.format("message.interact.inventory_full"));
                                 break;
                             }
                             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);

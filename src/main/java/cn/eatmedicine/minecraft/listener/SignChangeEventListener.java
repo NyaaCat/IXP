@@ -38,27 +38,27 @@ public class SignChangeEventListener implements Listener {
         }
         Player player = event.getPlayer();
         if (player.hasPermission("ixp.admin") == false) {
-            player.sendMessage("无权限创建IXP牌子");
+            player.sendMessage(plugin.lang.format("message.command.not_permission_create_ixpSign"));
             return;
         }
         IXPData ixp = BlockAnalysis.GetIXP(lines, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("IXP牌子格式错误");
+            player.sendMessage(plugin.lang.format("message.sign.format_error"));
             return;
         }
         //如果是发送牌，检测发送牌是否在服务器配置里*
         if(ixp.getType()==IXPType.SEND){
             serverIds server = plugin.cm.hasServer(lines[2]);
             if (server == null && ixp.getType() != IXPType.RECEIVE) {
-                player.sendMessage("该服务器名无效");
+                player.sendMessage(plugin.lang.format("message.command.not_find_server"));
                 return;
             }
             if (server.isEnable() == false) {
-                player.sendMessage("该服务器名不存在或已注销");
+                player.sendMessage(plugin.lang.format("message.command.server_disabled"));
                 return;
             }
         }
-        player.sendMessage("创建一个IXP牌子");
+        player.sendMessage(plugin.lang.format("message.command.ixpSign_create_success"));
         Location site = block.getLocation();
         Database db = new Database(plugin);
         String worldName = block.getWorld().getName();

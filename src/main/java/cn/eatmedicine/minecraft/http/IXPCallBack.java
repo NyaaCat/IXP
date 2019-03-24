@@ -27,11 +27,11 @@ public class IXPCallBack implements HttpClient.HttpCallback {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(tdata.SenderUuid));
         String ErrorMsg = "";
         switch(code){
-            case 201:player.sendMessage("Send Success");return;
-            case 400:ErrorMsg = "Bad Request";break;
-            case 401:ErrorMsg = "Authentication Failure";break;
-            case 500:ErrorMsg = "Internal plugin error";break;
-            case 503:ErrorMsg = "Service unavailable - You don't have enough slots on the remote server";break;
+            case 201:player.sendMessage(plugin.lang.format("message.send.callback_201"));return;
+            case 400:ErrorMsg = plugin.lang.format("message.send.callback_400");break;
+            case 401:ErrorMsg = plugin.lang.format("message.send.callback_401");break;
+            case 500:ErrorMsg = plugin.lang.format("message.send.callback_500");break;
+            case 503:ErrorMsg = plugin.lang.format("message.send.callback_503");break;
             default:
                 ErrorMsg = ("Send Item Error:"+code);
                 break;

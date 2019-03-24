@@ -27,32 +27,32 @@ public class RemoveSign implements IHandleCommand {
         if (sender instanceof Player) {
             player = (Player) sender;
         } else {
-            sender.sendMessage("You must be a player!\n");
+            sender.sendMessage(plugin.lang.format("message.command.only_player_can_use"));
             return false;
         }
         Block block = player.getTargetBlock(null, 20);
         Sign sign = BlockAnalysis.GetSign(block);
         if (sign == null) {
-            sender.sendMessage("指向的方块不是一个牌子\n");
+            sender.sendMessage(plugin.lang.format("message.command.pointing_square_not_ixp"));
             return false;
         }
         IXPData ixp = BlockAnalysis.GetIXP(sign, plugin.getConfig().getString("id"), plugin);
         if (ixp == null) {
-            player.sendMessage("该牌子不是IXP牌子\n");
+            player.sendMessage(plugin.lang.format("message.command.sign_not_ixpSign"));
             return false;
         }
         Database db = new Database(plugin);
         SignData sdata = db.selectSign(block.getX(), block.getY(), block.getZ(),
                 block.getWorld().getName());
         if (sdata == null || sdata.isEnable == 0) {
-            sender.sendMessage("该牌子不在数据库中或已关闭\n");
+            sender.sendMessage(plugin.lang.format("message.command.ixpSign_not_find_database"));
             return false;
         }
         db.deleteSign(block.getX(), block.getY(), block.getZ(),
                 block.getWorld().getName());
         plugin.sm.updateSignData();
         plugin.sm.updateAttachBlockData();
-        sender.sendMessage("删除成功\n");
+        sender.sendMessage(plugin.lang.format("message.command.ixpSign_delete_success"));
         return true;
     }
 }

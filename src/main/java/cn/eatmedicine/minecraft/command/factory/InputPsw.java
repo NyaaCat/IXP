@@ -48,23 +48,23 @@ public class InputPsw implements IHandleCommand{
             }
         }
         if (info == null) {
-            player.sendMessage("需要右击发送牌后才可以输入密码");
+            player.sendMessage(plugin.lang.format("message.command.not_right_click_sign"));
             return false;
         }
         //This password is used as a passwordless identification field
         if(psw.equals("CannotUseThisPassword")){
-            player.sendMessage("Cannot use this password, please try another : )");
+            player.sendMessage(plugin.lang.format("message.command.cannot_use_this_psw"));
             return false;
         }
         int maxLength = plugin.cm.config.getInt("misc.password-length");
         if(psw.length()>maxLength){
-            player.sendMessage("Your password length needs to be less than 16");
+            player.sendMessage(plugin.lang.format("message.command.psw_too_long",maxLength));
             return false;
         }
         //Begin Send
         ItemStack item = player.getInventory().getItemInMainHand();
         if(item.getType()== Material.AIR){
-            player.sendMessage("Your main hand needs to have an item");
+            player.sendMessage(plugin.lang.format("message.command.main_hand_empty"));
             return false;
         }
         String itemBase64 = ItemStackUtils.itemToBase64(item);
@@ -85,7 +85,7 @@ public class InputPsw implements IHandleCommand{
             }
         }
         if(targetServer == null){
-            player.sendMessage("未找到目标服务器信息");
+            player.sendMessage(plugin.lang.format("message.command.not_find_server"));
             plugin.waitInputPswList.remove(info);
             return false;
         }

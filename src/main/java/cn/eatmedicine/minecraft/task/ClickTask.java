@@ -91,11 +91,13 @@ public class ClickTask extends BukkitRunnable {
             PlayerInventory pi = player.getInventory();
             InputPswTask tmp = new InputPswTask(data,player.getName(),plugin.waitInputPswList,plugin);
             int delay = plugin.cm.config.getInt("misc.password-timeout")*20;
+            player.sendMessage(plugin.lang.format("message.interact.input_send_psw",delay/20));
             tmp.runTaskLaterAsynchronously(plugin,delay);
             if(plugin.waitInputPswList.size()!=0){
                 for(InputPswTask task : plugin.waitInputPswList){
                     if(task.PlayerName.equals(player.getName())){
                         plugin.waitInputPswList.remove(task);
+                        break;
                     }
                 }
             }
@@ -107,7 +109,7 @@ public class ClickTask extends BukkitRunnable {
             //开始发送信息
             ItemStack item = player.getInventory().getItemInMainHand();
             if(item.getType()== Material.AIR){
-                player.sendMessage("Your main hand needs to have an item");
+                player.sendMessage(plugin.lang.format("message.command.main_hand_empty"));
                 dataList.remove(this);
                 return;
             }
@@ -131,7 +133,7 @@ public class ClickTask extends BukkitRunnable {
                 }
             }
             if(targetServer == null){
-                player.sendMessage("未找到目标服务器信息");
+                player.sendMessage(plugin.lang.format("message.command.not_find_server"));
                 player.getInventory().addItem(item);
                 dataList.remove(this);
                 return;

@@ -1,4 +1,4 @@
-lang: en
+lang: en_US
 id: testName  # local server id
 psk: test123456  # local server pre-shared key
 http:

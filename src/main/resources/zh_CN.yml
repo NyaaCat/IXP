@@ -1,0 +1,51 @@
+log:
+  error:
+    vault_not_find: 缺失Vault插件，初始化失败
+    default: 插件出错
+  info:
+    loading: IXP正在加载中
+    protect_loading: IXP牌子保护加载中
+message:
+  command:
+    not_permission: 你没有该命令的权限
+    only_player_can_use: 只有玩家可以使用该命令
+    not_find_player: 没有找到该玩家
+    not_find_acquire_item: 没有可以提取的物品
+    not_enough_money: 没有足够的金钱来获取下一个物品
+    inventory_full: 背包已满，请清理出足够空间后重试
+    success_delete_item: 成功删除 %d 个物品
+    pointing_square_not_ixp: 指向的方块不是一个IXP牌子
+    sign_not_ixpSign: 该牌子不是一个IXP牌子
+    not_permission_create_ixpSign: 无权限创建IXP牌子
+    ixpSign_already_exist: 该牌子已经存在
+    ixpSign_create_success: 成功创建了IXP牌子
+    ixpSign_not_find_database: 该牌子不在数据库中或已停用
+    ixpSign_delete_success: 成功删除IXP牌子
+    not_find_server: 没有该服务器或已停用
+    server_disabled: 没有该服务器或已停用
+    not_right_click_sign: 需要右击IXP牌子后才可发送物品
+    cannot_use_this_psw: 该密码为保留字段，请尝试其他密码
+    psw_too_long: 密码长度需小于 %d
+    main_hand_empty: 主手空空，无法发送
+  send:
+    callback_201: 发送成功
+    callback_400: 错误的请求
+    callback_401: 验证失败
+    callback_500: 内部插件发生错误
+    callback_503: 服务不可用 - 您在其他服务器上没有足够的空位
+  interact:
+    ixpSign_not_find_database: 该牌子不在数据库中或已停用
+    not_enough_money: 你没有足够的金钱获取下一个物品
+    not_find_acquire_item: 没有可以提取的物品
+    inventory_full: 背包已满，请清理出足够空间后重试
+    input_send_psw: 请于 %d 秒内输入密码发送物品
+  sign:
+    format_error: IXP格式错误
+  helper:
+    create_send: 创建发送物品到指定服务器的IXP牌子
+    create_receive: 创建接收物品的IXP牌子
+    remove: 删除IXP牌子
+    acquire_all: 获取某个玩家所有发送的物品
+    clear: 清除某个玩家所有发送的物品
+    spass: 输入发送密码
+    rpass: 输入接收密码

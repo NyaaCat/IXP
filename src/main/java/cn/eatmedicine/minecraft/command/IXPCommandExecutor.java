@@ -29,20 +29,20 @@ public class IXPCommandExecutor implements CommandExecutor {
             return false;
         }
         if (args.length == 0) {
-            Tools.SendHelpMsg(sender);
+            Tools.SendHelpMsg(sender,plugin);
             return true;
         }
         Player player = Tools.GetPlayer(sender);
         //Check Permission
         if(CommandUtils.CheckCommandPermission(sender,args)==false){
-            sender.sendMessage("You don't have permission to do this");
+            sender.sendMessage(plugin.lang.format("message.command.not_permission"));
             return false;
         }
         //Uses the factory design method to generate commands
         commandFactory cf = new commandFactory(plugin, sender);
         IHandleCommand executor = cf.GetExecutor(args);
         if (executor == null) {
-            Tools.SendHelpMsg(sender);
+            Tools.SendHelpMsg(sender,plugin);
             return false;
         }
         executor.handleCommand();

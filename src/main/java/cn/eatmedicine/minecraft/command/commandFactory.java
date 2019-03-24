@@ -58,7 +58,7 @@ public class commandFactory {
                 return null;
             Player player = Tools.GetPlayer(sender);
             if(player==null){
-                sender.sendMessage("Only Player allow use this command");
+                sender.sendMessage(plugin.lang.format("message.command.only_player_can_use"));
                 return null;
             }
             return new GetItemByPsw(plugin,args[1],player);
@@ -69,7 +69,7 @@ public class commandFactory {
             if(args[1].toLowerCase().equals("acquire")){
                 Player player = Tools.GetPlayer(sender);
                 if(player==null){
-                    sender.sendMessage("Only Player allow use this command");
+                    sender.sendMessage(plugin.lang.format("message.command.only_player_can_use"));
                     return null;
                 }
                 return new AcquireAllItem(plugin,player,args[2]);

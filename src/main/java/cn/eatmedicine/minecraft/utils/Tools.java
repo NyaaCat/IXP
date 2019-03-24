@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cn.eatmedicine.minecraft.Main;
 import org.bukkit.block.Sign;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -88,20 +89,16 @@ public class Tools {
 
     }
 
-    public static void SendHelpMsg(CommandSender sender){
+    public static void SendHelpMsg(CommandSender sender, Main plugin){
         if (sender.hasPermission("IXP.admin")) {
-            sender.sendMessage("/ixp sign create send [server-id] -- Register a send out (outbound) "
-                    + "IXP sign that send items to the specific server");
-            sender.sendMessage("/ixp sign create receive -- Register a receive IXP sign that "
-                    + "receives items in current server\n");
-            sender.sendMessage("/ixp sign remove --Unregister the facing IXP sign\n");
-            sender.sendMessage("/ixp inv acquire [player] -- Acquire all items of a "
-                    + "specific player (sender)\n");
-            sender.sendMessage("/ixp inv clear [player] -- Clear all items of a "
-                    + "specific player (sender)\n");
+            sender.sendMessage("/ixp sign create send [server-id] -- "+plugin.lang.format("message.helper.create_send"));
+            sender.sendMessage("/ixp sign create receive -- "+plugin.lang.format("message.helper.create_receive"));
+            sender.sendMessage("/ixp sign remove -- "+plugin.lang.format("message.helper.remove"));
+            sender.sendMessage("/ixp inv acquire [player] -- "+plugin.lang.format("message.helper.acquire_all"));
+            sender.sendMessage("/ixp inv clear [player] -- "+plugin.lang.format("message.helper.clear"));
         }
-        sender.sendMessage("/ixp spass [password] -- 输入发送密码\n");
-        sender.sendMessage("/ixp rpass [password] -- 输入接收密码\n");
+        sender.sendMessage("/ixp spass [password] -- "+plugin.lang.format("message.helper.spass"));
+        sender.sendMessage("/ixp rpass [password] -- "+plugin.lang.format("message.helper.rpass"));
         return;
     }
 
