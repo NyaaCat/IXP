@@ -28,9 +28,6 @@ public class SignManager {
 
     public void updateSignData() {
         Database db = new Database(plugin);
-        //Used to activate the database to prevent a database table from generating bugs
-        db.InitTransData();
-
         signData = db.selectAllSign();
         updateAttachBlockData();
     }
