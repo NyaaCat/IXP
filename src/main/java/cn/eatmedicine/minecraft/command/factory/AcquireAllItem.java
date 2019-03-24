@@ -30,9 +30,9 @@ public class AcquireAllItem implements IHandleCommand{
              player.sendMessage(plugin.lang.format("message.command.not_find_player"));
              return false;
         }
-        String Uuid = acquirePlayer.getUniqueId().toString();
+        String name = acquirePlayer.getName();
         Database db = new Database(plugin);
-        List<TransData> list = db.SelectTransDataByUuid(Uuid);
+        List<TransData> list = db.SelectTransDataByName(name);
         if(list.size()==0){
             player.sendMessage(plugin.lang.format("message.command.not_find_acquire_item"));
             return false;
@@ -44,7 +44,7 @@ public class AcquireAllItem implements IHandleCommand{
                 break;
             }
             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);
-            db.deleteTransData(tdata.SenderUuid,tdata.TimeStamp);
+            db.deleteTransData(tdata.SenderName,tdata.TimeStamp);
             inventory.addItem(item);
         }
         return true;

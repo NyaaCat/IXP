@@ -71,8 +71,8 @@ public class InputPsw implements IHandleCommand{
         player.getInventory().setItemInMainHand(null);
         Date date = new Date();
         TransData data = new TransData();
-        data.SetTransData(plugin.cm.localInfo.getName(),
-                player.getUniqueId().toString(), itemBase64,
+        TransData.SetTransData(data,plugin.cm.localInfo.getName(),
+                player.getName(), itemBase64,
                 psw,date.getTime(),false);
         Gson gson = new Gson();
         //trans-id

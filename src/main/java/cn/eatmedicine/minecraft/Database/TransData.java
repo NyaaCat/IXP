@@ -10,8 +10,8 @@ import javax.persistence.Table;
 public class TransData {
     @Column(name = "OriginServer")
     public String OriginServer;
-    @Column(name = "SenderUuid")
-    public String SenderUuid;
+    @Column(name = "SenderName")
+    public String SenderName;
     @Column(name = "ItemData")
     public String ItemData;
     @Column(name = "Password")
@@ -21,13 +21,13 @@ public class TransData {
     @Column(name = "IsTaken")
     public boolean IsTaken;
 
-    public void SetTransData(String originServer, String senderUuid, String itemData, String password
+    public static void SetTransData(TransData data, String originServer, String senderName, String itemData, String password
             , long timeStamp, boolean isTaken) {
-        OriginServer = originServer;
-        SenderUuid = senderUuid;
-        ItemData = itemData;
-        Password = password;
-        TimeStamp = timeStamp;
-        IsTaken = isTaken;
+        data.OriginServer = originServer;
+        data.SenderName = senderName.toLowerCase();
+        data.ItemData = itemData;
+        data.Password = password;
+        data.TimeStamp = timeStamp;
+        data.IsTaken = isTaken;
     }
 }

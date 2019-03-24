@@ -58,7 +58,7 @@ public class IXPResponder implements Responder {
             }
             Database db = new Database(plugin);
             // Check if the user has enough slot
-            List<TransData> list = db.SelectTransDataByUuid(tData.SenderUuid);
+            List<TransData> list = db.SelectTransDataByName(tData.SenderName);
             if(list.size()>=plugin.cm.config.getInt("misc.slot-limit")){
                 response.status(503);
                 jsonObject.put("status","You don't have enough slots on the remote server");

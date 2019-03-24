@@ -107,9 +107,10 @@ public class Database implements Cloneable {
         return true;
     }
 
-    public boolean deleteTransData(String senderUuid,long timeStamp){
+    public boolean deleteTransData(String senderName,long timeStamp){
+        senderName = senderName.toLowerCase();
         try (Query<TransData> query = database.queryTransactional(TransData.class)
-                .whereEq("SenderUuid",senderUuid)
+                .whereEq("SenderName",senderName)
                 .whereEq("TimeStamp",timeStamp)){
             if(query.count()==0)
                 return false;
@@ -122,9 +123,9 @@ public class Database implements Cloneable {
         return true;
     }
 
-    public boolean SetTakenTransData(String senderUuid,long timeStamp,boolean isTaken){
+    public boolean SetTakenTransData(String senderName,long timeStamp,boolean isTaken){
         try (Query<TransData> query = database.queryTransactional(TransData.class)
-                .whereEq("SenderUuid",senderUuid)
+                .whereEq("SenderName",senderName)
                 .whereEq("TimeStamp",timeStamp)){
             if(query.count()==0)
                 return false;
@@ -139,10 +140,11 @@ public class Database implements Cloneable {
         return true;
     }
 
-    public List<TransData> SelectTransDataByUuid(String senderUuid){
+    public List<TransData> SelectTransDataByName(String senderName){
+        senderName = senderName.toLowerCase();
         List<TransData> list = new ArrayList<>();
         try (Query<TransData> query = database.queryTransactional(TransData.class)
-                .whereEq("SenderUuid",senderUuid)){
+                .whereEq("SenderName",senderName)){
             if(query.count()==0)
                 return list;
             list = query.select();
@@ -166,10 +168,11 @@ public class Database implements Cloneable {
         return list;
     }
 
-    public int deleteAllTransData(String playerUuid){
+    public int deleteAllTransData(String playerName){
         int count;
+        playerName = playerName.toLowerCase();
         try (Query<TransData> query = database.queryTransactional(TransData.class)
-                .whereEq("SenderUuid",playerUuid)){
+                .whereEq("SenderName",playerName)){
             count=query.count();
             if(query.count()==0)
                 return 0;
@@ -180,5 +183,12 @@ public class Database implements Cloneable {
             return 0;
         }
         return count;
+    }
+
+    public void InitTransData(){
+        TransData tdata = new TransData();
+        TransData.SetTransData(tdata,"none","none","none","none",0,false);
+        addTransData(tdata);
+        deleteTransData("none",0);
     }
 }

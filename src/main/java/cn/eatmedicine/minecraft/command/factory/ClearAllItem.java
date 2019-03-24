@@ -27,8 +27,8 @@ public class ClearAllItem implements IHandleCommand{
             player.sendMessage(plugin.lang.format("message.command.not_find_player"));
             return false;
         }
-        String Uuid = acquirePlayer.getUniqueId().toString();
-        int count = db.deleteAllTransData(Uuid);
+        String name = acquirePlayer.getName();
+        int count = db.deleteAllTransData(name);
         player.sendMessage(plugin.lang.format("message.command.success_delete_item",count));
         return false;
     }

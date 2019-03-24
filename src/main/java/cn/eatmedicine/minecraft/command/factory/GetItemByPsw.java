@@ -47,7 +47,7 @@ public class GetItemByPsw implements IHandleCommand{
                 break;
             }
             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);
-            db.deleteTransData(tdata.SenderUuid,tdata.TimeStamp);
+            db.deleteTransData(tdata.SenderName,tdata.TimeStamp);
             inventory.addItem(item);
             //Take money
             plugin.economy.withdrawPlayer(offlinePlayer,defaultReceiveFee);

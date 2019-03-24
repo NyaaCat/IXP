@@ -24,7 +24,7 @@ public class IXPCallBack implements HttpClient.HttpCallback {
     @Override
     public void response(ChannelHandlerContext ctx, FullHttpResponse response, Throwable throwable) {
         int code = response.status().code();
-        Player player = Bukkit.getServer().getPlayer(UUID.fromString(tdata.SenderUuid));
+        Player player = Bukkit.getServer().getPlayer(tdata.SenderName);
         String ErrorMsg = "";
         switch(code){
             case 201:player.sendMessage(plugin.lang.format("message.send.callback_201"));return;

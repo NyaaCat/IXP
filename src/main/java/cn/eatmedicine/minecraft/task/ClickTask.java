@@ -117,8 +117,8 @@ public class ClickTask extends BukkitRunnable {
             player.getInventory().setItemInMainHand(null);
             Date date = new Date();
             TransData tdata = new TransData();
-            tdata.SetTransData(plugin.cm.localInfo.getName(),
-                    player.getUniqueId().toString(), itemBase64,
+            TransData.SetTransData(tdata,plugin.cm.localInfo.getName(),
+                    player.getName(), itemBase64,
                     "CannotUseThisPassword",date.getTime(),false);
             Gson gson = new Gson();
             //trans-id

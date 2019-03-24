@@ -83,7 +83,7 @@ public class PlayerInteractEventListener implements Listener {
                     }
                     //Receive Sign
                     else{
-                        List<TransData> list = db.SelectTransDataByUuid(player.getUniqueId().toString());
+                        List<TransData> list = db.SelectTransDataByName(player.getName());
                         if(list.size()==0){
                             player.sendMessage(plugin.lang.format("message.interact.not_find_acquire_item"));
                             return;
@@ -101,7 +101,7 @@ public class PlayerInteractEventListener implements Listener {
                                 break;
                             }
                             ItemStack item = ItemStackUtils.itemFromBase64(tdata.ItemData);
-                            db.deleteTransData(tdata.SenderUuid,tdata.TimeStamp);
+                            db.deleteTransData(tdata.SenderName,tdata.TimeStamp);
                             inventory.addItem(item);
                             //Take money
                             plugin.economy.withdrawPlayer(offlinePlayer,data.getFee());
