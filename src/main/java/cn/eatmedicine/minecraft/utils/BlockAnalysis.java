@@ -18,11 +18,7 @@ public class BlockAnalysis {
 
 
     public static boolean isSign(Block block) {
-        if (block != null &&
-                (block.getType().equals(Material.WALL_SIGN) || block.getType().equals(Material.SIGN))) {
-            return true;
-        }
-        return false;
+        return block != null && block.getType().name().endsWith("_SIGN");
     }
 
     //从block获取一个Sign牌子的对象，如果block不属于Sign则返回null

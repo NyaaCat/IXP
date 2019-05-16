@@ -1,6 +1,6 @@
 name: IXP
 main: cn.eatmedicine.minecraft.Main
-version: 1.0.0
+version: ${version}
 api-version: 1.13
 depend: [NyaaCore,Vault]
 commands:
